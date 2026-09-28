@@ -106,8 +106,16 @@ jobs:
           DEB=$(ls "$GITHUB_WORKSPACE"/dist/*.deb)
           echo "== control =="; dpkg-deb -f "$DEB"
           echo "== contents (head) =="; dpkg-deb -c "$DEB" | head -40
-          echo "== bundled frpc =="
-          dpkg-deb -x "$DEB" /tmp/x && /tmp/x/usr/bin/frpc -v
+          echo "== bundled frpc architecture =="
+          dpkg-deb -x "$DEB" /tmp/x
+          file /tmp/x/usr/bin/frpc
+          # Only the native amd64 build can be executed on this runner;
+          # cross-architecture binaries fail with 'Exec format error'.
+          if [ "${{ matrix.arch }}" = "amd64" ]; then
+            /tmp/x/usr/bin/frpc -v
+          else
+            echo "Skipping execution test for cross build ${{ matrix.arch }}"
+          fi
 
       - name: Upload artifact
         uses: actions/upload-artifact@v4
