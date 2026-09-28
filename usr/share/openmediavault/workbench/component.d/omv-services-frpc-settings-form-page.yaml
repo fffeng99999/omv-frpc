@@ -1,0 +1,377 @@
+version: "1.0"
+type: component
+data:
+  name: omv-services-frpc-settings-form-page
+  type: formPage
+  config:
+    request:
+      service: Frpc
+      get:
+        method: get
+        transform:
+          statusText: "{{ statusText | translate }}"
+      post:
+        method: set
+    hints:
+      - type: info
+        text: _("frpc is the FRP reverse proxy client. Configure the frps server connection here and manage proxies at Services -> FRP Client -> Proxies. Click Save and then Apply to deploy; Start/Stop/Restart act immediately.")
+        dismissible: true
+        stateId: a17c3e58-2d9f-4a36-b8e4-6f1d0c2a7b91
+    fields:
+      - type: divider
+        title: _("Status")
+      - type: textInput
+        name: statusText
+        label: _("Service status")
+        readonly: true
+      - type: textInput
+        name: version
+        label: _("frpc version")
+        readonly: true
+      - type: textInput
+        name: activeConfigPath
+        label: _("Generated configuration file")
+        readonly: true
+
+      - type: divider
+        title: _("Service")
+      - type: checkbox
+        name: enable
+        label: _("Enabled")
+        hint: _("Start the frpc service automatically at boot (native service or docker restart policy). Click Save and then Apply to take effect.")
+        value: false
+      - type: select
+        name: backend
+        label: _("Backend")
+        hint: _("'Docker' manages an already existing frpc container through the docker CLI. 'Native' uses the frpc binary bundled in this package and a generated systemd unit. Only one backend should run at a time.")
+        value: "docker"
+        store:
+          data:
+            - - "docker"
+              - _("Docker container")
+            - - "native"
+              - _("Native systemd service")
+      - type: textInput
+        name: dockerContainer
+        label: _("Docker container name")
+        hint: _("Name of the existing frpc container to manage. The plugin does not create or remove the container.")
+        value: "frpc"
+        modifiers:
+          - type: visible
+            constraint:
+              operator: eq
+              arg0:
+                prop: backend
+              arg1: "docker"
+      - type: textInput
+        name: dockerConfigPath
+        label: _("Configuration file (host path)")
+        hint: _("The host path where frpc.toml is written. It must be bind-mounted into the container (on this NAS the existing file is in data/appdata/frpc/frpc.toml).")
+        value: "/etc/frp/frpc.toml"
+        validators:
+          required: true
+        modifiers:
+          - type: visible
+            constraint:
+              operator: eq
+              arg0:
+                prop: backend
+              arg1: "docker"
+      - type: textInput
+        name: dockerContainerConfigPath
+        label: _("Configuration file (container path)")
+        hint: _("The path of frpc.toml inside the container, passed with -c and used for hot reload.")
+        value: "/etc/frp/frpc.toml"
+        validators:
+          required: true
+        modifiers:
+          - type: visible
+            constraint:
+              operator: eq
+              arg0:
+                prop: backend
+              arg1: "docker"
+
+      - type: divider
+        title: _("Server")
+      - type: textInput
+        name: serverAddr
+        label: _("Server address")
+        hint: _("Address of the frps server.")
+        value: ""
+        validators:
+          required: true
+      - type: numberInput
+        name: serverPort
+        label: _("Server port")
+        hint: _("The port frps listens on for clients (usually 7000).")
+        value: 7000
+        validators:
+          min: 1
+          max: 65535
+          patternType: port
+      - type: textInput
+        name: user
+        label: _("Proxy name prefix")
+        hint: _("Optional. Proxy names are prefixed with this value ({user}.{proxy}) on the server.")
+        value: ""
+
+      - type: divider
+        title: _("Authentication")
+      - type: passwordInput
+        name: token
+        label: _("Token")
+        hint: _("Shared secret expected by frps. Leave empty if the server does not require a token.")
+        value: ""
+        autocomplete: "new-password"
+
+      - type: divider
+        title: _("Transport")
+      - type: select
+        name: protocol
+        label: _("Protocol")
+        hint: _("Transport protocol used to connect to frps.")
+        value: "tcp"
+        store:
+          data:
+            - - "tcp"
+              - "TCP"
+            - - "kcp"
+              - "KCP"
+            - - "quic"
+              - "QUIC"
+            - - "websocket"
+              - "WebSocket"
+            - - "wss"
+              - "WebSocket over TLS"
+      - type: checkbox
+        name: tlsEnable
+        label: _("Enable TLS")
+        hint: _("Connect to frps using TLS (default since frp v0.50.0).")
+        value: true
+      - type: textInput
+        name: tlsServerName
+        label: _("TLS server name")
+        hint: _("Optional SNI server name for the TLS connection.")
+        value: ""
+        modifiers:
+          - type: visible
+            constraint:
+              operator: truthy
+              arg0:
+                prop: tlsEnable
+      - type: checkbox
+        name: tcpMuxEnable
+        label: _("Enable TCP multiplexing")
+        hint: _("Multiplex TCP connections to the server (transport.multiplexer).")
+        value: true
+      - type: numberInput
+        name: poolCount
+        label: _("Connection pool count")
+        hint: _("Connections established in advance. 0 disables the pool.")
+        value: 0
+        validators:
+          min: 0
+      - type: numberInput
+        name: heartbeatInterval
+        label: _("Heartbeat interval (seconds)")
+        value: 30
+        validators:
+          min: 0
+      - type: numberInput
+        name: heartbeatTimeout
+        label: _("Heartbeat timeout (seconds)")
+        value: 90
+        validators:
+          min: 0
+      - type: numberInput
+        name: dialTimeout
+        label: _("Dial server timeout (seconds)")
+        value: 10
+        validators:
+          min: 0
+      - type: textInput
+        name: proxyUrl
+        label: _("Proxy URL")
+        hint: _("Connect to frps through an HTTP/SOCKS5 proxy, e.g. socks5://user:pass@host:1080.")
+        value: ""
+      - type: textInput
+        name: dnsServer
+        label: _("DNS server")
+        hint: _("Custom DNS server used by frpc.")
+        value: ""
+      - type: checkbox
+        name: loginFailExit
+        label: _("Exit when login fails")
+        hint: _("Terminate frpc if the first login to the server fails.")
+        value: true
+
+      - type: divider
+        title: _("Log")
+      - type: select
+        name: logLevel
+        label: _("Log level")
+        value: "info"
+        store:
+          data:
+            - - "trace"
+              - _("Trace")
+            - - "debug"
+              - _("Debug")
+            - - "info"
+              - _("Info")
+            - - "warn"
+              - _("Warning")
+            - - "error"
+              - _("Error")
+      - type: numberInput
+        name: logMaxDays
+        label: _("Log retention (days)")
+        hint: _("0 keeps logs indefinitely.")
+        value: 3
+        validators:
+          min: 0
+      - type: checkbox
+        name: logPrintContent
+        label: _("Print proxied content")
+        hint: _("Log the content of each request (verbose, for debugging only).")
+        value: false
+
+      - type: divider
+        title: _("Management (frpc admin web server)")
+      - type: checkbox
+        name: webEnable
+        label: _("Enable admin web server")
+        hint: _("Required for hot reload and for the live proxy status column. The admin API is used over HTTP on the configured address and port.")
+        value: false
+      - type: textInput
+        name: webAddr
+        label: _("Admin address")
+        hint: _("Bind address of the admin API. Keep 127.0.0.1 unless you know what you are doing.")
+        value: "127.0.0.1"
+        modifiers:
+          - type: visible
+            constraint:
+              operator: truthy
+              arg0:
+                prop: webEnable
+      - type: numberInput
+        name: webPort
+        label: _("Admin port")
+        value: 7400
+        validators:
+          min: 1
+          max: 65535
+          patternType: port
+        modifiers:
+          - type: visible
+            constraint:
+              operator: truthy
+              arg0:
+                prop: webEnable
+      - type: textInput
+        name: webUser
+        label: _("Admin username")
+        value: ""
+        modifiers:
+          - type: visible
+            constraint:
+              operator: truthy
+              arg0:
+                prop: webEnable
+      - type: passwordInput
+        name: webPassword
+        label: _("Admin password")
+        value: ""
+        autocomplete: "new-password"
+        modifiers:
+          - type: visible
+            constraint:
+              operator: truthy
+              arg0:
+                prop: webEnable
+
+      - type: divider
+        title: _("Advanced")
+      - type: tagInput
+        name: meta
+        label: _("Metadata")
+        hint: _("Key=value pairs sent to frps for this client, e.g. region=east.")
+        value: []
+      - type: tagInput
+        name: includes
+        label: _("Include files")
+        hint: _("Additional TOML files included by frpc (glob patterns supported), e.g. /etc/frp/conf.d/*.toml.")
+        value: []
+      - type: textarea
+        name: rawConfig
+        label: _("Custom raw TOML")
+        hint: _("Verbatim TOML appended after the generated tables. Use only for additional tables or sub-tables not covered by this form (e.g. QUIC tuning, OIDC, feature gates). Invalid TOML prevents frpc from starting.")
+        rows: 8
+        monospace: true
+        value: ""
+    buttons:
+      - text: _("Start")
+        execute:
+          type: request
+          request:
+            service: Frpc
+            method: start
+            successNotification: _("frpc service started.")
+      - text: _("Stop")
+        execute:
+          type: request
+          request:
+            service: Frpc
+            method: stop
+            successNotification: _("frpc service stopped.")
+      - text: _("Restart")
+        confirmationDialogConfig:
+          template: confirmation
+          message: _("Do you really want to restart the frpc service?")
+        execute:
+          type: request
+          request:
+            service: Frpc
+            method: restart
+            successNotification: _("frpc service restarted.")
+      - text: _("Reload")
+        confirmationDialogConfig:
+          template: confirmation
+          message: _("Send a hot reload signal to the running frpc process? The admin web server must be enabled.")
+        execute:
+          type: request
+          request:
+            service: Frpc
+            method: reload
+            successNotification: _("frpc configuration reloaded.")
+      - text: _("View logs")
+        execute:
+          type: taskDialog
+          taskDialog:
+            config:
+              title: _("frpc logs")
+              startOnInit: true
+              request:
+                service: Frpc
+                method: getLog
+      - text: _("View generated config")
+        execute:
+          type: taskDialog
+          taskDialog:
+            config:
+              title: _("Generated frpc.toml")
+              width: "70%"
+              startOnInit: true
+              request:
+                service: Frpc
+                method: getShowConfig
+      - text: _("Open admin UI")
+        execute:
+          type: url
+          url: "/externalRedirect/{{ ['http://', location() | get('hostname'), ':', webPort] | join | encodeuricomponent }}"
+      - template: cancel
+        execute:
+          type: url
+          url: "/services/frpc"
+      - template: submit

@@ -1,0 +1,10 @@
+version: "1.0"
+type: navigation-item
+data:
+  path: "services.frpc"
+  text: _("FRP Client")
+  icon: "mdi:router-network"
+  url: "/services/frpc"
+  permissions:
+    role:
+    - admin

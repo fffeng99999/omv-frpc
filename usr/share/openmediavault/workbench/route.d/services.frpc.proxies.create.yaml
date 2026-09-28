@@ -1,0 +1,7 @@
+version: "1.0"
+type: route
+data:
+  url: "/services/frpc/proxies/create"
+  title: _("Add proxy")
+  notificationTitle: _("Added proxy.")
+  component: omv-services-frpc-proxy-form-page

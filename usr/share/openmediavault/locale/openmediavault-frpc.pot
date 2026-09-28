@@ -1,0 +1,539 @@
+# Translation template for openmediavault-frpc.
+# Copyright (C) 2026 fffeng99999
+# This file is distributed under the same license as the openmediavault-frpc package.
+# fffeng99999, 2026.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: openmediavault-frpc 8.0.1\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-09-28 18:00+0800\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+msgid "FRP Client"
+msgstr ""
+
+msgid "Proxies"
+msgstr ""
+
+msgid "Updated FRP client settings."
+msgstr ""
+
+msgid "Added proxy."
+msgstr ""
+
+msgid "Updated proxy."
+msgstr ""
+
+msgid "Add proxy"
+msgstr ""
+
+msgid "Edit proxy"
+msgstr ""
+
+msgid "Running"
+msgstr ""
+
+msgid "Stopped"
+msgstr ""
+
+msgid "Online"
+msgstr ""
+
+msgid "Error"
+msgstr ""
+
+msgid "frpc is the FRP reverse proxy client. Configure the frps server connection here and manage proxies at Services -> FRP Client -> Proxies. Click Save and then Apply to deploy; Start/Stop/Restart act immediately."
+msgstr ""
+
+msgid "Status"
+msgstr ""
+
+msgid "Service status"
+msgstr ""
+
+msgid "frpc version"
+msgstr ""
+
+msgid "Generated configuration file"
+msgstr ""
+
+msgid "Service"
+msgstr ""
+
+msgid "Enabled"
+msgstr ""
+
+msgid "Start the frpc service automatically at boot (native service or docker restart policy). Click Save and then Apply to take effect."
+msgstr ""
+
+msgid "Backend"
+msgstr ""
+
+msgid "'Docker' manages an already existing frpc container through the docker CLI. 'Native' uses the frpc binary bundled in this package and a generated systemd unit. Only one backend should run at a time."
+msgstr ""
+
+msgid "Docker container"
+msgstr ""
+
+msgid "Native systemd service"
+msgstr ""
+
+msgid "Docker container name"
+msgstr ""
+
+msgid "Name of the existing frpc container to manage. The plugin does not create or remove the container."
+msgstr ""
+
+msgid "Configuration file (host path)"
+msgstr ""
+
+msgid "The host path where frpc.toml is written. It must be bind-mounted into the container (on this NAS the existing file is in data/appdata/frpc/frpc.toml)."
+msgstr ""
+
+msgid "Configuration file (container path)"
+msgstr ""
+
+msgid "The path of frpc.toml inside the container, passed with -c and used for hot reload."
+msgstr ""
+
+msgid "Server"
+msgstr ""
+
+msgid "Server address"
+msgstr ""
+
+msgid "Address of the frps server."
+msgstr ""
+
+msgid "Server port"
+msgstr ""
+
+msgid "The port frps listens on for clients (usually 7000)."
+msgstr ""
+
+msgid "Proxy name prefix"
+msgstr ""
+
+msgid "Optional. Proxy names are prefixed with this value ({user}.{proxy}) on the server."
+msgstr ""
+
+msgid "Authentication"
+msgstr ""
+
+msgid "Token"
+msgstr ""
+
+msgid "Shared secret expected by frps. Leave empty if the server does not require a token."
+msgstr ""
+
+msgid "Transport"
+msgstr ""
+
+msgid "Protocol"
+msgstr ""
+
+msgid "Transport protocol used to connect to frps."
+msgstr ""
+
+msgid "TCP"
+msgstr ""
+
+msgid "KCP"
+msgstr ""
+
+msgid "QUIC"
+msgstr ""
+
+msgid "WebSocket"
+msgstr ""
+
+msgid "WebSocket over TLS"
+msgstr ""
+
+msgid "Enable TLS"
+msgstr ""
+
+msgid "Connect to frps using TLS (default since frp v0.50.0)."
+msgstr ""
+
+msgid "TLS server name"
+msgstr ""
+
+msgid "Optional SNI server name for the TLS connection."
+msgstr ""
+
+msgid "Enable TCP multiplexing"
+msgstr ""
+
+msgid "Multiplex TCP connections to the server (transport.multiplexer)."
+msgstr ""
+
+msgid "Connection pool count"
+msgstr ""
+
+msgid "Connections established in advance. 0 disables the pool."
+msgstr ""
+
+msgid "Heartbeat interval (seconds)"
+msgstr ""
+
+msgid "Heartbeat timeout (seconds)"
+msgstr ""
+
+msgid "Dial server timeout (seconds)"
+msgstr ""
+
+msgid "Proxy URL"
+msgstr ""
+
+msgid "Connect to frps through an HTTP/SOCKS5 proxy, e.g. socks5://user:pass@host:1080."
+msgstr ""
+
+msgid "DNS server"
+msgstr ""
+
+msgid "Custom DNS server used by frpc."
+msgstr ""
+
+msgid "Exit when login fails"
+msgstr ""
+
+msgid "Terminate frpc if the first login to the server fails."
+msgstr ""
+
+msgid "Log"
+msgstr ""
+
+msgid "Log level"
+msgstr ""
+
+msgid "Trace"
+msgstr ""
+
+msgid "Debug"
+msgstr ""
+
+msgid "Info"
+msgstr ""
+
+msgid "Warning"
+msgstr ""
+
+msgid "Log retention (days)"
+msgstr ""
+
+msgid "0 keeps logs indefinitely."
+msgstr ""
+
+msgid "Print proxied content"
+msgstr ""
+
+msgid "Log the content of each request (verbose, for debugging only)."
+msgstr ""
+
+msgid "Management (frpc admin web server)"
+msgstr ""
+
+msgid "Enable admin web server"
+msgstr ""
+
+msgid "Required for hot reload and for the live proxy status column. The admin API is used over HTTP on the configured address and port."
+msgstr ""
+
+msgid "Admin address"
+msgstr ""
+
+msgid "Bind address of the admin API. Keep 127.0.0.1 unless you know what you are doing."
+msgstr ""
+
+msgid "Admin port"
+msgstr ""
+
+msgid "Admin username"
+msgstr ""
+
+msgid "Admin password"
+msgstr ""
+
+msgid "Advanced"
+msgstr ""
+
+msgid "Metadata"
+msgstr ""
+
+msgid "Key=value pairs sent to frps for this client, e.g. region=east."
+msgstr ""
+
+msgid "Include files"
+msgstr ""
+
+msgid "Additional TOML files included by frpc (glob patterns supported), e.g. /etc/frp/conf.d/*.toml."
+msgstr ""
+
+msgid "Custom raw TOML"
+msgstr ""
+
+msgid "Verbatim TOML appended after the generated tables. Use only for additional tables or sub-tables not covered by this form (e.g. QUIC tuning, OIDC, feature gates). Invalid TOML prevents frpc from starting."
+msgstr ""
+
+msgid "Start"
+msgstr ""
+
+msgid "Stop"
+msgstr ""
+
+msgid "Restart"
+msgstr ""
+
+msgid "Reload"
+msgstr ""
+
+msgid "frpc service started."
+msgstr ""
+
+msgid "frpc service stopped."
+msgstr ""
+
+msgid "frpc service restarted."
+msgstr ""
+
+msgid "Do you really want to restart the frpc service?"
+msgstr ""
+
+msgid "Send a hot reload signal to the running frpc process? The admin web server must be enabled."
+msgstr ""
+
+msgid "frpc configuration reloaded."
+msgstr ""
+
+msgid "View logs"
+msgstr ""
+
+msgid "frpc logs"
+msgstr ""
+
+msgid "View generated config"
+msgstr ""
+
+msgid "Generated frpc.toml"
+msgstr ""
+
+msgid "Open admin UI"
+msgstr ""
+
+msgid "Live status"
+msgstr ""
+
+msgid "Name"
+msgstr ""
+
+msgid "Type"
+msgstr ""
+
+msgid "Role"
+msgstr ""
+
+msgid "Local IP"
+msgstr ""
+
+msgid "Local port"
+msgstr ""
+
+msgid "Remote port"
+msgstr ""
+
+msgid "Subdomain"
+msgstr ""
+
+msgid "Custom domains"
+msgstr ""
+
+msgid "Encrypt"
+msgstr ""
+
+msgid "Compress"
+msgstr ""
+
+msgid "Disabled entries are kept in the list but are not written to frpc.toml."
+msgstr ""
+
+msgid "Unique name of this proxy or visitor. Allowed characters: letters, digits, dot, underscore and dash."
+msgstr ""
+
+msgid "Only letters, digits, dot, underscore and dash are allowed."
+msgstr ""
+
+msgid "UDP"
+msgstr ""
+
+msgid "HTTP"
+msgstr ""
+
+msgid "HTTPS"
+msgstr ""
+
+msgid "TCPMUX"
+msgstr ""
+
+msgid "STCP (secret TCP)"
+msgstr ""
+
+msgid "XTCP (P2P)"
+msgstr ""
+
+msgid "SUDP (secret UDP)"
+msgstr ""
+
+msgid "'Server' exposes a local service; 'Visitor' connects to a peer's STCP/XTCP/SUDP server and binds it locally."
+msgstr ""
+
+msgid "Server (expose a service)"
+msgstr ""
+
+msgid "Visitor (connect to a peer)"
+msgstr ""
+
+msgid "Local service"
+msgstr ""
+
+msgid "IP or host name of the local service to expose."
+msgstr ""
+
+msgid "Port opened on the frps side for TCP/UDP. Use 0 to let frps assign a random port."
+msgstr ""
+
+msgid "STCP / XTCP / SUDP"
+msgstr ""
+
+msgid "Secret key"
+msgstr ""
+
+msgid "Shared key both sides must present to access the secret proxy."
+msgstr ""
+
+msgid "Server name"
+msgstr ""
+
+msgid "Visitor only: name of the peer's secret proxy to connect to."
+msgstr ""
+
+msgid "Bind address"
+msgstr ""
+
+msgid "Visitor only: local address the accessed service is bound to."
+msgstr ""
+
+msgid "Bind port"
+msgstr ""
+
+msgid "Visitor only: local port the accessed service is bound to."
+msgstr ""
+
+msgid "HTTP / HTTPS domains"
+msgstr ""
+
+msgid "Subdomain under the frps subdomain host."
+msgstr ""
+
+msgid "One or more domains routed to this proxy."
+msgstr ""
+
+msgid "Locations"
+msgstr ""
+
+msgid "Only forward the given URL paths, e.g. /api or /static."
+msgstr ""
+
+msgid "Host header rewrite"
+msgstr ""
+
+msgid "HTTP auth username"
+msgstr ""
+
+msgid "Basic authentication requested from external visitors."
+msgstr ""
+
+msgid "HTTP auth password"
+msgstr ""
+
+msgid "Transport options"
+msgstr ""
+
+msgid "Encrypt traffic"
+msgstr ""
+
+msgid "Encrypt the connection between frpc and frps."
+msgstr ""
+
+msgid "Compress traffic"
+msgstr ""
+
+msgid "Bandwidth limit"
+msgstr ""
+
+msgid "e.g. 1MB or 512KB. Leave empty for no limit."
+msgstr ""
+
+msgid "Bandwidth limit enforced by"
+msgstr ""
+
+msgid "Client"
+msgstr ""
+
+msgid "Server"
+msgstr ""
+
+msgid "Proxy protocol"
+msgstr ""
+
+msgid "Forward the original connection info to the local service using PROXY protocol."
+msgstr ""
+
+msgid "Disabled"
+msgstr ""
+
+msgid "Load balancer"
+msgstr ""
+
+msgid "Group"
+msgstr ""
+
+msgid "Proxies with the same group name load-balance connections."
+msgstr ""
+
+msgid "Group key"
+msgstr ""
+
+msgid "Health check"
+msgstr ""
+
+msgid "Health check type"
+msgstr ""
+
+msgid "Health check path"
+msgstr ""
+
+msgid "HTTP path used for the health request, e.g. /health."
+msgstr ""
+
+msgid "Check interval (seconds)"
+msgstr ""
+
+msgid "Check timeout (seconds)"
+msgstr ""
+
+msgid "Failures before offline"
+msgstr ""
+
+msgid "Extra TOML lines"
+msgstr ""
+
+msgid "Verbatim lines inserted inside this proxy/visitor table (scalar key = value lines only, placed before sub-tables). Invalid TOML prevents frpc from starting."
+msgstr ""

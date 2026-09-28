@@ -1,0 +1,534 @@
+# Copyright (C) 2026 fffeng99999
+# This file is distributed under the same license as the openmediavault-frpc package.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: openmediavault-frpc 8.0.1\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-09-28 18:00+0800\n"
+"PO-Revision-Date: 2026-09-28 18:00+0800\n"
+"Last-Translator: fffeng99999\n"
+"Language-Team: Chinese (Traditional)\n"
+"Language: zh_TW\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+msgid "FRP Client"
+msgstr "FRP 用戶端"
+
+msgid "Proxies"
+msgstr "代理"
+
+msgid "Updated FRP client settings."
+msgstr "FRP 用戶端設定已更新。"
+
+msgid "Added proxy."
+msgstr "已新增代理。"
+
+msgid "Updated proxy."
+msgstr "代理已更新。"
+
+msgid "Add proxy"
+msgstr "新增代理"
+
+msgid "Edit proxy"
+msgstr "編輯代理"
+
+msgid "Running"
+msgstr "執行中"
+
+msgid "Stopped"
+msgstr "已停止"
+
+msgid "Online"
+msgstr "在線"
+
+msgid "Error"
+msgstr "錯誤"
+
+msgid "frpc is the FRP reverse proxy client. Configure the frps server connection here and manage proxies at Services -> FRP Client -> Proxies. Click Save and then Apply to deploy; Start/Stop/Restart act immediately."
+msgstr "frpc 是 FRP 反向代理用戶端。在此設定 frps 伺服器連線，並於「服務 → FRP 用戶端 → 代理」管理代理。按下儲存後再按「套用」完成部署；啟動/停止/重啟按鈕會立即生效。"
+
+msgid "Status"
+msgstr "狀態"
+
+msgid "Service status"
+msgstr "服務狀態"
+
+msgid "frpc version"
+msgstr "frpc 版本"
+
+msgid "Generated configuration file"
+msgstr "產生的設定檔"
+
+msgid "Service"
+msgstr "服務"
+
+msgid "Enabled"
+msgstr "啟用"
+
+msgid "Start the frpc service automatically at boot (native service or docker restart policy). Click Save and then Apply to take effect."
+msgstr "開機時自動啟動 frpc 服務（原生服務或 Docker 重啟原則）。按下儲存後再按「套用」生效。"
+
+msgid "Backend"
+msgstr "後端"
+
+msgid "'Docker' manages an already existing frpc container through the docker CLI. 'Native' uses the frpc binary bundled in this package and a generated systemd unit. Only one backend should run at a time."
+msgstr "「Docker」透過 docker CLI 管理已存在的 frpc 容器；「原生」使用本套件內附的 frpc 程式與自動產生的 systemd unit 執行。同一時間只能執行一個後端。"
+
+msgid "Docker container"
+msgstr "Docker 容器"
+
+msgid "Native systemd service"
+msgstr "原生 systemd 服務"
+
+msgid "Docker container name"
+msgstr "Docker 容器名稱"
+
+msgid "Name of the existing frpc container to manage. The plugin does not create or remove the container."
+msgstr "要管理的現有 frpc 容器名稱。此外掛程式不會建立或移除容器。"
+
+msgid "Configuration file (host path)"
+msgstr "設定檔（主機路徑）"
+
+msgid "The host path where frpc.toml is written. It must be bind-mounted into the container (on this NAS the existing file is in data/appdata/frpc/frpc.toml)."
+msgstr "frpc.toml 的寫入路徑，必須已掛載進容器（本 NAS 現有檔案位於 data/appdata/frpc/frpc.toml）。"
+
+msgid "Configuration file (container path)"
+msgstr "設定檔（容器內路徑）"
+
+msgid "The path of frpc.toml inside the container, passed with -c and used for hot reload."
+msgstr "容器內 frpc.toml 的路徑，作為 -c 參數並用於熱重載。"
+
+msgid "Server"
+msgstr "伺服器"
+
+msgid "Server address"
+msgstr "伺服器位址"
+
+msgid "Address of the frps server."
+msgstr "frps 伺服器位址。"
+
+msgid "Server port"
+msgstr "伺服器連接埠"
+
+msgid "The port frps listens on for clients (usually 7000)."
+msgstr "frps 監聽用戶端的連接埠（通常為 7000）。"
+
+msgid "Proxy name prefix"
+msgstr "代理名稱前綴"
+
+msgid "Optional. Proxy names are prefixed with this value ({user}.{proxy}) on the server."
+msgstr "可選。伺服器上的代理名稱會變為 {user}.{proxy}。"
+
+msgid "Authentication"
+msgstr "認證"
+
+msgid "Token"
+msgstr "權杖"
+
+msgid "Shared secret expected by frps. Leave empty if the server does not require a token."
+msgstr "與 frps 約定的共用密鑰；伺服器不要求時留空。"
+
+msgid "Transport"
+msgstr "傳輸"
+
+msgid "Protocol"
+msgstr "協定"
+
+msgid "Transport protocol used to connect to frps."
+msgstr "連線 frps 使用的傳輸協定。"
+
+msgid "TCP"
+msgstr "TCP"
+
+msgid "KCP"
+msgstr "KCP"
+
+msgid "QUIC"
+msgstr "QUIC"
+
+msgid "WebSocket"
+msgstr "WebSocket"
+
+msgid "WebSocket over TLS"
+msgstr "基于 TLS 的 WebSocket"
+
+msgid "Enable TLS"
+msgstr "啟用 TLS"
+
+msgid "Connect to frps using TLS (default since frp v0.50.0)."
+msgstr "使用 TLS 連線 frps（frp v0.50.0 起預設啟用）。"
+
+msgid "TLS server name"
+msgstr "TLS 伺服器名稱"
+
+msgid "Optional SNI server name for the TLS connection."
+msgstr "可選的 TLS 連線 SNI 伺服器名稱。"
+
+msgid "Enable TCP multiplexing"
+msgstr "啟用 TCP 多工"
+
+msgid "Multiplex TCP connections to the server (transport.multiplexer)."
+msgstr "多工與伺服器之間的 TCP 連線（transport.multiplexer）。"
+
+msgid "Connection pool count"
+msgstr "連線池數量"
+
+msgid "Connections established in advance. 0 disables the pool."
+msgstr "預先建立的連線數，0 表示不啟用連線池。"
+
+msgid "Heartbeat interval (seconds)"
+msgstr "心跳間隔（秒）"
+
+msgid "Heartbeat timeout (seconds)"
+msgstr "心跳逾時（秒）"
+
+msgid "Dial server timeout (seconds)"
+msgstr "撥接伺服器逾時（秒）"
+
+msgid "Proxy URL"
+msgstr "代理 URL"
+
+msgid "Connect to frps through an HTTP/SOCKS5 proxy, e.g. socks5://user:pass@host:1080."
+msgstr "透過 HTTP/SOCKS5 代理連線 frps，例如 socks5://user:pass@host:1080。"
+
+msgid "DNS server"
+msgstr "DNS 伺服器"
+
+msgid "Custom DNS server used by frpc."
+msgstr "frpc 使用的自訂 DNS 伺服器。"
+
+msgid "Exit when login fails"
+msgstr "登入失敗即結束"
+
+msgid "Terminate frpc if the first login to the server fails."
+msgstr "首次登入伺服器失敗時終止 frpc。"
+
+msgid "Log"
+msgstr "紀錄"
+
+msgid "Log level"
+msgstr "紀錄層級"
+
+msgid "Trace"
+msgstr "追蹤"
+
+msgid "Debug"
+msgstr "偵錯"
+
+msgid "Info"
+msgstr "資訊"
+
+msgid "Warning"
+msgstr "警告"
+
+msgid "Log retention (days)"
+msgstr "紀錄保留天數"
+
+msgid "0 keeps logs indefinitely."
+msgstr "0 表示永久保留。"
+
+msgid "Print proxied content"
+msgstr "列印代理內容"
+
+msgid "Log the content of each request (verbose, for debugging only)."
+msgstr "記錄每個請求的內容（非常詳細，僅供偵錯）。"
+
+msgid "Management (frpc admin web server)"
+msgstr "管理（frpc 管理 Web 服務）"
+
+msgid "Enable admin web server"
+msgstr "啟用管理 Web 服務"
+
+msgid "Required for hot reload and for the live proxy status column. The admin API is used over HTTP on the configured address and port."
+msgstr "熱重載與代理即時狀態欄均依賴此選項。管理 API 透過指定位址與連接埠以 HTTP 存取。"
+
+msgid "Admin address"
+msgstr "管理位址"
+
+msgid "Bind address of the admin API. Keep 127.0.0.1 unless you know what you are doing."
+msgstr "管理 API 的繫結位址。除非明確需要，否則請保持 127.0.0.1。"
+
+msgid "Admin port"
+msgstr "管理連接埠"
+
+msgid "Admin username"
+msgstr "管理使用者名稱"
+
+msgid "Admin password"
+msgstr "管理密碼"
+
+msgid "Advanced"
+msgstr "進階"
+
+msgid "Metadata"
+msgstr "中繼資料"
+
+msgid "Key=value pairs sent to frps for this client, e.g. region=east."
+msgstr "隨用戶端傳送給 frps 的鍵=值組，例如 region=east。"
+
+msgid "Include files"
+msgstr "包含檔案"
+
+msgid "Additional TOML files included by frpc (glob patterns supported), e.g. /etc/frp/conf.d/*.toml."
+msgstr "frpc 額外包含的 TOML 檔案（支援萬用字元），例如 /etc/frp/conf.d/*.toml。"
+
+msgid "Custom raw TOML"
+msgstr "自訂原始 TOML"
+
+msgid "Verbatim TOML appended after the generated tables. Use only for additional tables or sub-tables not covered by this form (e.g. QUIC tuning, OIDC, feature gates). Invalid TOML prevents frpc from starting."
+msgstr "原樣追加到產生的表格之後。僅用於本表單未涵蓋的附加表格/子表格（如 QUIC 調校、OIDC、featureGates）。TOML 無效將導致 frpc 無法啟動。"
+
+msgid "Start"
+msgstr "開始"
+
+msgid "Stop"
+msgstr "停止"
+
+msgid "Restart"
+msgstr "重啟"
+
+msgid "Reload"
+msgstr "重新載入"
+
+msgid "frpc service started."
+msgstr "frpc 服務已啟動。"
+
+msgid "frpc service stopped."
+msgstr "frpc 服務已停止。"
+
+msgid "frpc service restarted."
+msgstr "frpc 服務已重啟。"
+
+msgid "Do you really want to restart the frpc service?"
+msgstr "確定要重啟 frpc 服務嗎？"
+
+msgid "Send a hot reload signal to the running frpc process? The admin web server must be enabled."
+msgstr "向執行中的 frpc 程序傳送熱重載訊號？必須已啟用管理 Web 服務。"
+
+msgid "frpc configuration reloaded."
+msgstr "frpc 設定已重新載入。"
+
+msgid "View logs"
+msgstr "檢視紀錄"
+
+msgid "frpc logs"
+msgstr "frpc 紀錄"
+
+msgid "View generated config"
+msgstr "檢視產生的設定"
+
+msgid "Generated frpc.toml"
+msgstr "產生的 frpc.toml"
+
+msgid "Open admin UI"
+msgstr "開啟管理介面"
+
+msgid "Live status"
+msgstr "即時狀態"
+
+msgid "Name"
+msgstr "名稱"
+
+msgid "Type"
+msgstr "類型"
+
+msgid "Role"
+msgstr "角色"
+
+msgid "Local IP"
+msgstr "本機 IP"
+
+msgid "Local port"
+msgstr "本機連接埠"
+
+msgid "Remote port"
+msgstr "遠端連接埠"
+
+msgid "Subdomain"
+msgstr "子網域"
+
+msgid "Custom domains"
+msgstr "自訂網域"
+
+msgid "Encrypt"
+msgstr "加密"
+
+msgid "Compress"
+msgstr "壓縮"
+
+msgid "Disabled entries are kept in the list but are not written to frpc.toml."
+msgstr "停用的項目會保留在清單中，但不會寫入 frpc.toml。"
+
+msgid "Unique name of this proxy or visitor. Allowed characters: letters, digits, dot, underscore and dash."
+msgstr "代理或訪客的唯一名稱。僅允許字母、數字、句號、底線與短橫線。"
+
+msgid "Only letters, digits, dot, underscore and dash are allowed."
+msgstr "僅允許字母、數字、句號、底線與短橫線。"
+
+msgid "UDP"
+msgstr "UDP"
+
+msgid "HTTP"
+msgstr "HTTP"
+
+msgid "HTTPS"
+msgstr "HTTPS"
+
+msgid "TCPMUX"
+msgstr "TCPMUX"
+
+msgid "STCP (secret TCP)"
+msgstr "STCP（加密 TCP）"
+
+msgid "XTCP (P2P)"
+msgstr "XTCP（P2P 穿透）"
+
+msgid "SUDP (secret UDP)"
+msgstr "SUDP（加密 UDP）"
+
+msgid "'Server' exposes a local service; 'Visitor' connects to a peer's STCP/XTCP/SUDP server and binds it locally."
+msgstr "「伺服器」用於暴露本機服務；「訪客」連線對端的 STCP/XTCP/SUDP 伺服器並於本機繫結。"
+
+msgid "Server (expose a service)"
+msgstr "伺服器（暴露服務）"
+
+msgid "Visitor (connect to a peer)"
+msgstr "訪客（連線對端）"
+
+msgid "Local service"
+msgstr "本機服務"
+
+msgid "IP or host name of the local service to expose."
+msgstr "要暴露的本機服務的 IP 或主機名稱。"
+
+msgid "Port opened on the frps side for TCP/UDP. Use 0 to let frps assign a random port."
+msgstr "在 frps 端為 TCP/UDP 開放的連接埠。填 0 由 frps 隨機分配。"
+
+msgid "STCP / XTCP / SUDP"
+msgstr "STCP / XTCP / SUDP"
+
+msgid "Secret key"
+msgstr "密鑰"
+
+msgid "Shared key both sides must present to access the secret proxy."
+msgstr "存取加密代理時雙方都必須提供的共用密鑰。"
+
+msgid "Server name"
+msgstr "伺服器名稱"
+
+msgid "Visitor only: name of the peer's secret proxy to connect to."
+msgstr "僅訪客：要連線的對端加密代理名稱。"
+
+msgid "Bind address"
+msgstr "繫結位址"
+
+msgid "Visitor only: local address the accessed service is bound to."
+msgstr "僅訪客：被存取服務在本機的繫結位址。"
+
+msgid "Bind port"
+msgstr "繫結連接埠"
+
+msgid "Visitor only: local port the accessed service is bound to."
+msgstr "僅訪客：被存取服務在本機的繫結連接埠。"
+
+msgid "HTTP / HTTPS domains"
+msgstr "HTTP / HTTPS 網域"
+
+msgid "Subdomain under the frps subdomain host."
+msgstr "frps 子網域主機下的子網域。"
+
+msgid "One or more domains routed to this proxy."
+msgstr "路由到此代理的一個或多個網域。"
+
+msgid "Locations"
+msgstr "路徑"
+
+msgid "Only forward the given URL paths, e.g. /api or /static."
+msgstr "僅轉發指定的 URL 路徑，例如 /api 或 /static。"
+
+msgid "Host header rewrite"
+msgstr "重寫 Host 標頭"
+
+msgid "HTTP auth username"
+msgstr "HTTP 認證使用者名稱"
+
+msgid "Basic authentication requested from external visitors."
+msgstr "要求外部訪客提供的基礎認證資訊。"
+
+msgid "HTTP auth password"
+msgstr "HTTP 認證密碼"
+
+msgid "Transport options"
+msgstr "傳輸選項"
+
+msgid "Encrypt traffic"
+msgstr "加密流量"
+
+msgid "Encrypt the connection between frpc and frps."
+msgstr "加密 frpc 與 frps 之間的連線。"
+
+msgid "Compress traffic"
+msgstr "壓縮流量"
+
+msgid "Bandwidth limit"
+msgstr "頻寬限制"
+
+msgid "e.g. 1MB or 512KB. Leave empty for no limit."
+msgstr "例如 1MB 或 512KB；留空表示不限制。"
+
+msgid "Bandwidth limit enforced by"
+msgstr "頻寬限制生效端"
+
+msgid "Client"
+msgstr "用戶端"
+
+msgid "Proxy protocol"
+msgstr "代理協定"
+
+msgid "Forward the original connection info to the local service using PROXY protocol."
+msgstr "使用 PROXY 協定將原始連線資訊傳送給本機服務。"
+
+msgid "Disabled"
+msgstr "停用"
+
+msgid "Load balancer"
+msgstr "負載平衡器"
+
+msgid "Group"
+msgstr "群組"
+
+msgid "Proxies with the same group name load-balance connections."
+msgstr "相同群組名稱的代理會對連線進行負載平衡。"
+
+msgid "Group key"
+msgstr "群組密鑰"
+
+msgid "Health check"
+msgstr "健康檢查"
+
+msgid "Health check type"
+msgstr "健康檢查類型"
+
+msgid "Health check path"
+msgstr "健康檢查路徑"
+
+msgid "HTTP path used for the health request, e.g. /health."
+msgstr "健康檢查請求使用的 HTTP 路徑，例如 /health。"
+
+msgid "Check interval (seconds)"
+msgstr "檢查間隔（秒）"
+
+msgid "Check timeout (seconds)"
+msgstr "檢查逾時（秒）"
+
+msgid "Failures before offline"
+msgstr "離線前失敗次數"
+
+msgid "Extra TOML lines"
+msgstr "額外 TOML 行"
+
+msgid "Verbatim lines inserted inside this proxy/visitor table (scalar key = value lines only, placed before sub-tables). Invalid TOML prevents frpc from starting."
+msgstr "原樣插入到此代理/訪客表格內（僅限 key = value 標量行，置於子表格之前）。TOML 無效將導致 frpc 無法啟動。"

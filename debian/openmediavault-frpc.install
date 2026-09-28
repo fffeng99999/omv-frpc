@@ -1,0 +1,4 @@
+usr/share/openmediavault/* usr/share/openmediavault/
+usr/sbin/* usr/sbin/
+usr/bin/frpc usr/bin/
+srv/* srv/

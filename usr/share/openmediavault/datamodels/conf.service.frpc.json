@@ -1,0 +1,267 @@
+{
+	"type": "config",
+	"id": "conf.service.frpc",
+	"title": "frp client",
+	"queryinfo": {
+		"xpath": ".//services/frpc",
+		"iterable": false
+	},
+	"properties": {
+		"enable": {
+			"type": "boolean",
+			"default": false
+		},
+		"backend": {
+			"type": "string",
+			"enum": ["docker", "native"],
+			"default": "docker"
+		},
+		"dockerContainer": {
+			"type": "string",
+			"default": "frpc"
+		},
+		"dockerConfigPath": {
+			"type": "string",
+			"default": "/etc/frp/frpc.toml"
+		},
+		"dockerContainerConfigPath": {
+			"type": "string",
+			"default": "/etc/frp/frpc.toml"
+		},
+		"serverAddr": {
+			"type": "string",
+			"default": ""
+		},
+		"serverPort": {
+			"type": "integer",
+			"minimum": 1,
+			"maximum": 65535,
+			"default": 7000
+		},
+		"user": {
+			"type": "string",
+			"default": ""
+		},
+		"token": {
+			"type": "string",
+			"default": ""
+		},
+		"protocol": {
+			"type": "string",
+			"enum": ["tcp", "kcp", "quic", "websocket", "wss"],
+			"default": "tcp"
+		},
+		"tlsEnable": {
+			"type": "boolean",
+			"default": true
+		},
+		"tlsServerName": {
+			"type": "string",
+			"default": ""
+		},
+		"tcpMuxEnable": {
+			"type": "boolean",
+			"default": true
+		},
+		"poolCount": {
+			"type": "integer",
+			"minimum": 0,
+			"default": 0
+		},
+		"heartbeatInterval": {
+			"type": "integer",
+			"minimum": 0,
+			"default": 30
+		},
+		"heartbeatTimeout": {
+			"type": "integer",
+			"minimum": 0,
+			"default": 90
+		},
+		"dialTimeout": {
+			"type": "integer",
+			"minimum": 0,
+			"default": 10
+		},
+		"proxyUrl": {
+			"type": "string",
+			"default": ""
+		},
+		"dnsServer": {
+			"type": "string",
+			"default": ""
+		},
+		"loginFailExit": {
+			"type": "boolean",
+			"default": true
+		},
+		"logLevel": {
+			"type": "string",
+			"enum": ["trace", "debug", "info", "warn", "error"],
+			"default": "info"
+		},
+		"logMaxDays": {
+			"type": "integer",
+			"minimum": 0,
+			"default": 3
+		},
+		"logPrintContent": {
+			"type": "boolean",
+			"default": false
+		},
+		"webEnable": {
+			"type": "boolean",
+			"default": false
+		},
+		"webAddr": {
+			"type": "string",
+			"default": "127.0.0.1"
+		},
+		"webPort": {
+			"type": "integer",
+			"minimum": 1,
+			"maximum": 65535,
+			"default": 7400
+		},
+		"webUser": {
+			"type": "string",
+			"default": ""
+		},
+		"webPassword": {
+			"type": "string",
+			"default": ""
+		},
+		"meta": {
+			"type": "array",
+			"items": {
+				"type": "string"
+			},
+			"default": []
+		},
+		"includes": {
+			"type": "array",
+			"items": {
+				"type": "string"
+			},
+			"default": []
+		},
+		"rawConfig": {
+			"type": "string",
+			"default": ""
+		},
+		"proxies": {
+			"type": "object",
+			"properties": {
+				"proxy": {
+					"type": "array",
+					"items": {
+						"type": "object",
+						"properties": {
+							"uuid": {
+								"type": "string",
+								"format": "uuidv4"
+							},
+							"enable": {
+								"type": "boolean",
+								"default": true
+							},
+							"name": {
+								"type": "string"
+							},
+							"kind": {
+								"type": "string"
+							},
+							"role": {
+								"type": "string"
+							},
+							"localIP": {
+								"type": "string"
+							},
+							"localPort": {
+								"type": ["integer", "string"]
+							},
+							"remotePort": {
+								"type": ["integer", "string"]
+							},
+							"secretKey": {
+								"type": "string"
+							},
+							"serverName": {
+								"type": "string"
+							},
+							"bindAddr": {
+								"type": "string"
+							},
+							"bindPort": {
+								"type": ["integer", "string"]
+							},
+							"useEncryption": {
+								"type": "boolean"
+							},
+							"useCompression": {
+								"type": "boolean"
+							},
+							"bandwidthLimit": {
+								"type": "string"
+							},
+							"bandwidthLimitMode": {
+								"type": "string"
+							},
+							"proxyProtocolVersion": {
+								"type": "string"
+							},
+							"subdomain": {
+								"type": "string"
+							},
+							"customDomains": {
+								"type": "array",
+								"items": {
+									"type": "string"
+								}
+							},
+							"locations": {
+								"type": "array",
+								"items": {
+									"type": "string"
+								}
+							},
+							"hostHeaderRewrite": {
+								"type": "string"
+							},
+							"httpUser": {
+								"type": "string"
+							},
+							"httpPassword": {
+								"type": "string"
+							},
+							"group": {
+								"type": "string"
+							},
+							"groupKey": {
+								"type": "string"
+							},
+							"healthCheckType": {
+								"type": "string"
+							},
+							"healthCheckPath": {
+								"type": "string"
+							},
+							"healthCheckInterval": {
+								"type": ["integer", "string"]
+							},
+							"healthCheckTimeout": {
+								"type": ["integer", "string"]
+							},
+							"healthCheckMaxFailed": {
+								"type": ["integer", "string"]
+							},
+							"extra": {
+								"type": "string"
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+}

@@ -1,0 +1,96 @@
+version: "1.0"
+type: component
+data:
+  name: omv-services-frpc-proxy-datatable-page
+  type: datatablePage
+  config:
+    autoReload: 10000
+    stateId: 8f2c9a7e-3b4d-4f6a-9c1e-7a2d5e8b1046
+    sorters:
+      - dir: asc
+        prop: name
+    store:
+      proxy:
+        service: Frpc
+        get:
+          method: getList
+    rowId: uuid
+    rowEnumFmt: "{{ name }}"
+    selectionType: multi
+    limit: 0
+    columns:
+      - name: _("Enabled")
+        prop: enable
+        flexGrow: 1
+        sortable: true
+        cellTemplateName: checkIcon
+      - name: _("Name")
+        prop: name
+        flexGrow: 2
+        sortable: true
+      - name: _("Type")
+        prop: kind
+        flexGrow: 1
+        sortable: true
+        cellTemplateName: chip
+      - name: _("Role")
+        prop: role
+        flexGrow: 1
+        sortable: true
+        cellTemplateName: chip
+      - name: _("Local IP")
+        prop: localIP
+        flexGrow: 2
+        sortable: true
+      - name: _("Local port")
+        prop: localPort
+        flexGrow: 1
+        sortable: true
+      - name: _("Remote port")
+        prop: remotePort
+        flexGrow: 1
+        sortable: true
+      - name: _("Subdomain")
+        prop: subdomain
+        flexGrow: 1
+        sortable: true
+      - name: _("Custom domains")
+        prop: customDomains
+        flexGrow: 2
+        sortable: true
+        cellTemplateName: join
+      - name: _("Encrypt")
+        prop: useEncryption
+        flexGrow: 1
+        cellTemplateName: checkIcon
+      - name: _("Compress")
+        prop: useCompression
+        flexGrow: 1
+        cellTemplateName: checkIcon
+      - name: _("Live status")
+        prop: stateText
+        flexGrow: 1
+        sortable: true
+        cellTemplateName: chip
+        cellTemplateConfig:
+          template: "{{ stateText | translate }}"
+    actions:
+      - template: create
+        execute:
+          type: url
+          url: "/services/frpc/proxies/create"
+      - template: edit
+        enabledConstraints:
+          minSelected: 1
+          maxSelected: 1
+        execute:
+          type: url
+          url: "/services/frpc/proxies/edit/{{ _selected[0].uuid }}"
+      - template: delete
+        execute:
+          type: request
+          request:
+            service: Frpc
+            method: deleteProxy
+            params:
+              uuid: "{{ uuid }}"

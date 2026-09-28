@@ -1,0 +1,8 @@
+version: "1.0"
+type: route
+data:
+  url: "/services/frpc/proxies/edit/:uuid"
+  title: _("Edit proxy")
+  editing: true
+  notificationTitle: _("Updated proxy.")
+  component: omv-services-frpc-proxy-form-page

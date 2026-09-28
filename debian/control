@@ -1,0 +1,22 @@
+Source: openmediavault-frpc
+Section: net
+XB-Plugin-Section: network
+XB-Plugin-Architecture: amd64, arm64, armhf
+Priority: optional
+Maintainer: fffeng99999
+Build-Depends: debhelper (>= 12)
+Standards-Version: 3.9.6
+Homepage: https://github.com/fffeng99999/omv-frpc
+
+Package: openmediavault-frpc
+Architecture: any
+Depends: openmediavault (>= 8.0)
+Priority: optional
+Description: openmediavault FRP client plugin
+ Manage frp (frpc) reverse proxy tunnels from the OpenMediaVault web
+ interface: server connection, proxies and visitors are stored in the
+ OMV configuration database and rendered to frpc.toml on Apply. Two
+ backends are supported - an existing Docker frpc container (default)
+ or the bundled frpc binary running as a native systemd service.
+ Includes start/stop/restart, hot reload, live per-proxy status, logs,
+ generated-config preview and Chinese translations.

@@ -1,0 +1,36 @@
+#!/usr/bin/make -f
+
+# Uncomment this to turn on verbose mode.
+#export DH_VERBOSE=1
+
+%:
+	dh $@
+
+# The frpc binary is a prebuilt, statically linked Go executable.
+# Skip the debhelper steps that would try to strip, compress debug info,
+# compute shared-library dependencies or scan for shared libraries (the
+# cross objdump/binutils are not present and the binary has no deps).
+override_dh_dwz:
+	:
+
+override_dh_strip:
+	:
+
+override_dh_strip_nondeterminism:
+	:
+
+override_dh_shlibdeps:
+	:
+
+override_dh_makeshlibs:
+	:
+
+# Windows checkouts do not preserve the executable bit; force the
+# correct modes on the shipped scripts and binary before packaging.
+execute_before_dh_installdeb:
+	chmod 0755 debian/openmediavault-frpc.postinst
+	chmod 0755 debian/openmediavault-frpc.prerm
+	chmod 0755 debian/openmediavault-frpc.postrm
+	chmod 0755 debian/openmediavault-frpc/usr/sbin/omv-frpc-ctl || true
+	chmod 0755 debian/openmediavault-frpc/usr/bin/frpc || true
+	chmod 0755 debian/openmediavault-frpc/usr/share/openmediavault/confdb/create.d/*.sh

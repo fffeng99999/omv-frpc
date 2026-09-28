@@ -1,0 +1,157 @@
+name: Build and Release
+
+on:
+  workflow_dispatch:
+    inputs:
+      upstream_tag:
+        description: "Optional explicit frp tag (e.g. v0.71.0). Leave empty to bundle the latest stable release."
+        type: string
+        required: false
+        default: ""
+  push:
+    tags:
+      - "v*"
+
+permissions:
+  contents: write
+
+jobs:
+  lint:
+    name: Lint (PHP + YAML + JSON + shell)
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: "8.2"
+
+      - name: Lint PHP files
+        run: |
+          for f in $(find usr/share/openmediavault/engined -name '*.inc'); do
+            php -l "$f"
+          done
+
+      - name: Validate JSON datamodels
+        run: |
+          for f in $(find usr/share/openmediavault/datamodels -name '*.json'); do
+            php -r 'json_decode(file_get_contents($argv[1]), true, 512, JSON_THROW_ON_ERROR); echo "OK: ".$argv[1]."\n";' "$f"
+          done
+
+      - name: Set up Python (yamllint)
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.x"
+
+      - name: Lint workbench YAML
+        run: |
+          pip install yamllint
+          yamllint -d "{extends: relaxed, rules: {line-length: disable}}" \
+            usr/share/openmediavault/workbench
+
+      - name: Shell syntax check
+        run: |
+          for f in build-deb.sh debian/*.postinst debian/*.prerm debian/*.postrm \
+                   usr/sbin/omv-frpc-ctl \
+                   usr/share/openmediavault/confdb/create.d/*.sh; do
+            sh -n "$f" && echo "OK: $f"
+          done
+
+  build:
+    name: Build .deb (${{ matrix.arch }})
+    needs: lint
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        arch: [amd64, arm64, armhf]
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install build dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends \
+            dpkg-dev debhelper build-essential fakeroot curl
+
+      - name: Verify changelog matches tag version
+        if: startsWith(github.ref, 'refs/tags/v')
+        run: |
+          TAG="${GITHUB_REF#refs/tags/v}"
+          VER=$(dpkg-parsechangelog -S Version | sed 's/-[0-9]*$//')
+          echo "tag=$TAG changelog=$VER"
+          if [ "$TAG" != "$VER" ]; then
+            echo "ERROR: tag version ($TAG) != changelog version ($VER)"
+            exit 1
+          fi
+
+      - name: Download and stage frpc
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          sh ./build-deb.sh "${{ matrix.arch }}" "${{ inputs.upstream_tag }}"
+
+      - name: Build package
+        run: |
+          dpkg-buildpackage -us -uc -b -a"${{ matrix.arch }}" -d
+          mkdir -p "$GITHUB_WORKSPACE/dist"
+          mv ../*.deb "$GITHUB_WORKSPACE/dist/" || true
+          ls -l "$GITHUB_WORKSPACE/dist"
+
+      - name: Inspect package
+        run: |
+          DEB=$(ls "$GITHUB_WORKSPACE"/dist/*.deb)
+          echo "== control =="; dpkg-deb -f "$DEB"
+          echo "== contents (head) =="; dpkg-deb -c "$DEB" | head -40
+          echo "== bundled frpc =="
+          dpkg-deb -x "$DEB" /tmp/x && /tmp/x/usr/bin/frpc -v
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: openmediavault-frpc-${{ matrix.arch }}
+          path: ${{ github.workspace }}/dist/*.deb
+
+  release:
+    name: Create release
+    needs: build
+    if: startsWith(github.ref, 'refs/tags/v') || github.event_name == 'workflow_dispatch'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Download all artifacts
+        uses: actions/download-artifact@v4
+        with:
+          path: dist
+
+      - name: Determine tag
+        id: meta
+        run: |
+          if [[ "${GITHUB_REF}" == refs/tags/v* ]]; then
+            echo "tag=${GITHUB_REF#refs/tags/}" >> "$GITHUB_OUTPUT"
+            echo "prerelease=false" >> "$GITHUB_OUTPUT"
+          else
+            VER=$(dpkg-parsechangelog -l debian/changelog -S Version)
+            echo "tag=v${VER}-manual-${GITHUB_RUN_ID}" >> "$GITHUB_OUTPUT"
+            echo "prerelease=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Flatten debs
+        run: |
+          mkdir -p out
+          find dist -name '*.deb' -exec cp {} out/ \;
+          ls -l out
+
+      - name: Create release and upload .deb
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh release create "${{ steps.meta.outputs.tag }}" \
+            --repo "$GITHUB_REPOSITORY" \
+            --title "openmediavault-frpc ${{ steps.meta.outputs.tag }}" \
+            --generate-notes out/*.deb

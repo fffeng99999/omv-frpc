@@ -1,0 +1,156 @@
+{
+	"type": "config",
+	"id": "conf.service.frpc.proxy",
+	"title": "frp proxy or visitor",
+	"queryinfo": {
+		"xpath": ".//services/frpc/proxies/proxy",
+		"iterable": true,
+		"idproperty": "uuid"
+	},
+	"properties": {
+		"uuid": {
+			"type": "string",
+			"format": "uuidv4"
+		},
+		"enable": {
+			"type": "boolean",
+			"default": true
+		},
+		"name": {
+			"type": "string",
+			"required": true
+		},
+		"kind": {
+			"type": "string",
+			"enum": ["tcp", "udp", "http", "https", "tcpmux", "stcp", "xtcp", "sudp"],
+			"default": "tcp"
+		},
+		"role": {
+			"type": "string",
+			"enum": ["server", "visitor"],
+			"default": "server"
+		},
+		"localIP": {
+			"type": "string",
+			"default": "127.0.0.1"
+		},
+		"localPort": {
+			"type": "integer",
+			"minimum": 0,
+			"maximum": 65535,
+			"default": 0
+		},
+		"remotePort": {
+			"type": "integer",
+			"minimum": 0,
+			"maximum": 65535,
+			"default": 0
+		},
+		"secretKey": {
+			"type": "string",
+			"default": ""
+		},
+		"serverName": {
+			"type": "string",
+			"default": ""
+		},
+		"bindAddr": {
+			"type": "string",
+			"default": "127.0.0.1"
+		},
+		"bindPort": {
+			"type": "integer",
+			"minimum": 0,
+			"maximum": 65535,
+			"default": 0
+		},
+		"useEncryption": {
+			"type": "boolean",
+			"default": false
+		},
+		"useCompression": {
+			"type": "boolean",
+			"default": false
+		},
+		"bandwidthLimit": {
+			"type": "string",
+			"default": ""
+		},
+		"bandwidthLimitMode": {
+			"type": "string",
+			"enum": ["client", "server"],
+			"default": "client"
+		},
+		"proxyProtocolVersion": {
+			"type": "string",
+			"enum": ["", "v1", "v2"],
+			"default": ""
+		},
+		"subdomain": {
+			"type": "string",
+			"default": ""
+		},
+		"customDomains": {
+			"type": "array",
+			"items": {
+				"type": "string"
+			},
+			"default": []
+		},
+		"locations": {
+			"type": "array",
+			"items": {
+				"type": "string"
+			},
+			"default": []
+		},
+		"hostHeaderRewrite": {
+			"type": "string",
+			"default": ""
+		},
+		"httpUser": {
+			"type": "string",
+			"default": ""
+		},
+		"httpPassword": {
+			"type": "string",
+			"default": ""
+		},
+		"group": {
+			"type": "string",
+			"default": ""
+		},
+		"groupKey": {
+			"type": "string",
+			"default": ""
+		},
+		"healthCheckType": {
+			"type": "string",
+			"enum": ["", "tcp", "http"],
+			"default": ""
+		},
+		"healthCheckPath": {
+			"type": "string",
+			"default": "/"
+		},
+		"healthCheckInterval": {
+			"type": "integer",
+			"minimum": 0,
+			"default": 10
+		},
+		"healthCheckTimeout": {
+			"type": "integer",
+			"minimum": 0,
+			"default": 3
+		},
+		"healthCheckMaxFailed": {
+			"type": "integer",
+			"minimum": 0,
+			"default": 1
+		},
+		"extra": {
+			"type": "string",
+			"default": ""
+		}
+	}
+}

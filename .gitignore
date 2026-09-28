@@ -1,0 +1,14 @@
+# frpc binary downloaded at package build time
+usr/bin/frpc
+
+# dpkg-buildpackage artifacts
+*.deb
+*.buildinfo
+*.changes
+debian/.debhelper/
+debian/debhelper-build-stamp
+debian/files
+debian/openmediavault-frpc/
+debian/openmediavault-frpc.substvars
+debian/tmp/
+../*.deb

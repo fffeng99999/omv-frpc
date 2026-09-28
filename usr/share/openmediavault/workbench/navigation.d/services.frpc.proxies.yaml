@@ -1,0 +1,10 @@
+version: "1.0"
+type: navigation-item
+data:
+  path: "services.frpc.proxies"
+  text: _("Proxies")
+  icon: "mdi:transit-connection"
+  url: "/services/frpc/proxies"
+  permissions:
+    role:
+    - admin

@@ -1,0 +1,6 @@
+version: "1.0"
+type: route
+data:
+  url: "/services/frpc/proxies"
+  title: _("Proxies")
+  component: omv-services-frpc-proxy-datatable-page

@@ -1,0 +1,22 @@
+openmediavault-frpc (8.0.1) stable; urgency=medium
+
+  * Initial release: FRP client (frpc) management plugin for
+    OpenMediaVault 8.x, modeled after the OpenWrt luci-app-frpc
+    plugins.
+    - Settings: frps server, token, transport (tcp/kcp/quic/ws/wss),
+      TLS, multiplexing, connection pool, heartbeat, proxy URL, DNS,
+      logging and the frpc admin web server.
+    - Proxies/visitors: tcp, udp, http, https, tcpmux, stcp, xtcp
+      and sudp with local/remote ports, secret keys, visitor binding,
+      domains and subdomains, basic HTTP auth, encryption,
+      compression, bandwidth limit, PROXY protocol, load-balancer
+      groups, health checks and a raw TOML escape hatch.
+    - Two selectable backends: an existing Docker frpc container
+      (default) or the bundled frpc binary with a generated systemd
+      unit (native).
+    - Start/stop/restart buttons, frpc hot reload, live per-proxy
+      status through the admin API, log viewer and generated
+      frpc.toml preview.
+    - Simplified and Traditional Chinese translations included.
+
+ -- fffeng99999  Mon, 28 Sep 2026 18:00:00 +0800

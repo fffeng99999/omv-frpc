@@ -1,0 +1,15 @@
+{{ pillar['headers']['multiline'] -}}
+[Unit]
+Description=frp Client (managed by OpenMediaVault)
+Documentation=https://github.com/fatedier/frp
+Wants=network-online.target
+After=network-online.target
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/frpc -c /etc/frp/frpc.toml
+Restart=on-failure
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target

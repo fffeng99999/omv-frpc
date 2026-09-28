@@ -1,0 +1,503 @@
+version: "1.0"
+type: component
+data:
+  name: omv-services-frpc-proxy-form-page
+  type: formPage
+  config:
+    request:
+      service: Frpc
+      get:
+        method: getProxy
+        params:
+          uuid: "{{ _routeParams.uuid }}"
+      post:
+        method: setProxy
+    fields:
+      - type: confObjUuid
+      - type: checkbox
+        name: enable
+        label: _("Enabled")
+        hint: _("Disabled entries are kept in the list but are not written to frpc.toml.")
+        value: true
+      - type: textInput
+        name: name
+        label: _("Name")
+        hint: _("Unique name of this proxy or visitor (allowed characters are letters, digits, dot, underscore and dash).")
+        value: ""
+        validators:
+          required: true
+          pattern:
+            patternType: regex
+            pattern: "^[A-Za-z0-9._-]+$"
+            errorData: _("Only letters, digits, dot, underscore and dash are allowed.")
+      - type: select
+        name: kind
+        label: _("Type")
+        value: "tcp"
+        store:
+          data:
+            - - "tcp"
+              - "TCP"
+            - - "udp"
+              - "UDP"
+            - - "http"
+              - "HTTP"
+            - - "https"
+              - "HTTPS"
+            - - "tcpmux"
+              - "TCPMUX"
+            - - "stcp"
+              - "STCP (secret TCP)"
+            - - "xtcp"
+              - "XTCP (P2P)"
+            - - "sudp"
+              - "SUDP (secret UDP)"
+      - type: select
+        name: role
+        label: _("Role")
+        hint: _("'Server' exposes a local service; 'Visitor' connects to a peer's STCP/XTCP/SUDP server and binds it locally.")
+        value: "server"
+        store:
+          data:
+            - - "server"
+              - _("Server (expose a service)")
+            - - "visitor"
+              - _("Visitor (connect to a peer)")
+        modifiers:
+          - type: visible
+            constraint:
+              operator: in
+              arg0:
+                prop: kind
+              arg1: ["stcp", "xtcp", "sudp"]
+          - type: value
+            constraint:
+              operator: not
+              arg0:
+                operator: in
+                arg0:
+                  prop: kind
+                arg1: ["stcp", "xtcp", "sudp"]
+            value: "server"
+
+      - type: divider
+        title: _("Local service")
+      - type: textInput
+        name: localIP
+        label: _("Local IP")
+        hint: _("IP or host name of the local service to expose.")
+        value: "127.0.0.1"
+        modifiers:
+          - type: visible
+            constraint:
+              operator: eq
+              arg0:
+                prop: role
+              arg1: "server"
+      - type: numberInput
+        name: localPort
+        label: _("Local port")
+        value: 0
+        validators:
+          min: 0
+          max: 65535
+        modifiers:
+          - type: visible
+            constraint:
+              operator: eq
+              arg0:
+                prop: role
+              arg1: "server"
+      - type: numberInput
+        name: remotePort
+        label: _("Remote port")
+        hint: _("Port opened on the frps side for TCP/UDP. Use 0 to let frps assign a random port.")
+        value: 0
+        validators:
+          min: 0
+          max: 65535
+        modifiers:
+          - type: visible
+            constraint:
+              operator: and
+              arg0:
+                operator: eq
+                arg0:
+                  prop: role
+                arg1: "server"
+              arg1:
+                operator: in
+                arg0:
+                  prop: kind
+                arg1: ["tcp", "udp"]
+
+      - type: divider
+        title: _("STCP / XTCP / SUDP")
+      - type: passwordInput
+        name: secretKey
+        label: _("Secret key")
+        hint: _("Shared key both sides must present to access the secret proxy.")
+        value: ""
+        autocomplete: "new-password"
+        modifiers:
+          - type: visible
+            constraint:
+              operator: in
+              arg0:
+                prop: kind
+              arg1: ["stcp", "xtcp", "sudp"]
+      - type: textInput
+        name: serverName
+        label: _("Server name")
+        hint: _("For visitors, the name of the peer's secret proxy to connect to.")
+        value: ""
+        validators:
+          requiredIf:
+            operator: eq
+            arg0:
+              prop: role
+            arg1: "visitor"
+        modifiers:
+          - type: visible
+            constraint:
+              operator: eq
+              arg0:
+                prop: role
+              arg1: "visitor"
+      - type: textInput
+        name: bindAddr
+        label: _("Bind address")
+        hint: _("For visitors, the local address the accessed service is bound to.")
+        value: "127.0.0.1"
+        modifiers:
+          - type: visible
+            constraint:
+              operator: eq
+              arg0:
+                prop: role
+              arg1: "visitor"
+      - type: numberInput
+        name: bindPort
+        label: _("Bind port")
+        hint: _("For visitors, the local port the accessed service is bound to.")
+        value: 0
+        validators:
+          min: 0
+          max: 65535
+          requiredIf:
+            operator: eq
+            arg0:
+              prop: role
+            arg1: "visitor"
+        modifiers:
+          - type: visible
+            constraint:
+              operator: eq
+              arg0:
+                prop: role
+              arg1: "visitor"
+
+      - type: divider
+        title: _("HTTP / HTTPS domains")
+      - type: textInput
+        name: subdomain
+        label: _("Subdomain")
+        hint: _("Subdomain under the frps subdomain host.")
+        value: ""
+        modifiers:
+          - type: visible
+            constraint:
+              operator: in
+              arg0:
+                prop: kind
+              arg1: ["http", "https"]
+      - type: tagInput
+        name: customDomains
+        label: _("Custom domains")
+        hint: _("One or more domains routed to this proxy.")
+        value: []
+        modifiers:
+          - type: visible
+            constraint:
+              operator: in
+              arg0:
+                prop: kind
+              arg1: ["http", "https"]
+      - type: tagInput
+        name: locations
+        label: _("Locations")
+        hint: _("Only forward the given URL paths, e.g. /api or /static.")
+        value: []
+        modifiers:
+          - type: visible
+            constraint:
+              operator: in
+              arg0:
+                prop: kind
+              arg1: ["http"]
+      - type: textInput
+        name: hostHeaderRewrite
+        label: _("Host header rewrite")
+        value: ""
+        modifiers:
+          - type: visible
+            constraint:
+              operator: in
+              arg0:
+                prop: kind
+              arg1: ["http", "https"]
+      - type: textInput
+        name: httpUser
+        label: _("HTTP auth username")
+        hint: _("Basic authentication requested from external visitors.")
+        value: ""
+        modifiers:
+          - type: visible
+            constraint:
+              operator: in
+              arg0:
+                prop: kind
+              arg1: ["http"]
+      - type: passwordInput
+        name: httpPassword
+        label: _("HTTP auth password")
+        value: ""
+        autocomplete: "new-password"
+        modifiers:
+          - type: visible
+            constraint:
+              operator: in
+              arg0:
+                prop: kind
+              arg1: ["http"]
+
+      - type: divider
+        title: _("Transport options")
+      - type: checkbox
+        name: useEncryption
+        label: _("Encrypt traffic")
+        hint: _("Encrypt the connection between frpc and frps.")
+        value: false
+        modifiers:
+          - type: visible
+            constraint:
+              operator: eq
+              arg0:
+                prop: role
+              arg1: "server"
+      - type: checkbox
+        name: useCompression
+        label: _("Compress traffic")
+        value: false
+        modifiers:
+          - type: visible
+            constraint:
+              operator: eq
+              arg0:
+                prop: role
+              arg1: "server"
+      - type: textInput
+        name: bandwidthLimit
+        label: _("Bandwidth limit")
+        hint: _("e.g. 1MB or 512KB. Leave empty for no limit.")
+        value: ""
+        modifiers:
+          - type: visible
+            constraint:
+              operator: eq
+              arg0:
+                prop: role
+              arg1: "server"
+      - type: select
+        name: bandwidthLimitMode
+        label: _("Bandwidth limit enforced by")
+        value: "client"
+        store:
+          data:
+            - - "client"
+              - _("Client")
+            - - "server"
+              - _("Server")
+        modifiers:
+          - type: visible
+            constraint:
+              operator: and
+              arg0:
+                operator: eq
+                arg0:
+                  prop: role
+                arg1: "server"
+              arg1:
+                operator: truthy
+                arg0:
+                  prop: bandwidthLimit
+      - type: select
+        name: proxyProtocolVersion
+        label: _("Proxy protocol")
+        hint: _("Forward the original connection info to the local service using PROXY protocol.")
+        value: ""
+        store:
+          data:
+            - - ""
+              - _("Disabled")
+            - - "v1"
+              - "v1"
+            - - "v2"
+              - "v2"
+        modifiers:
+          - type: visible
+            constraint:
+              operator: and
+              arg0:
+                operator: eq
+                arg0:
+                  prop: role
+                arg1: "server"
+              arg1:
+                operator: in
+                arg0:
+                  prop: kind
+                arg1: ["tcp", "http", "https", "tcpmux"]
+
+      - type: divider
+        title: _("Load balancer")
+      - type: textInput
+        name: group
+        label: _("Group")
+        hint: _("Proxies with the same group name load-balance connections.")
+        value: ""
+        modifiers:
+          - type: visible
+            constraint:
+              operator: in
+              arg0:
+                prop: kind
+              arg1: ["tcp", "http", "https", "tcpmux"]
+      - type: textInput
+        name: groupKey
+        label: _("Group key")
+        value: ""
+        modifiers:
+          - type: visible
+            constraint:
+              operator: in
+              arg0:
+                prop: kind
+              arg1: ["tcp", "http", "https", "tcpmux"]
+
+      - type: divider
+        title: _("Health check")
+      - type: select
+        name: healthCheckType
+        label: _("Health check type")
+        value: ""
+        store:
+          data:
+            - - ""
+              - _("Disabled")
+            - - "tcp"
+              - "TCP"
+            - - "http"
+              - "HTTP"
+        modifiers:
+          - type: visible
+            constraint:
+              operator: in
+              arg0:
+                prop: kind
+              arg1: ["tcp", "http", "https", "tcpmux"]
+      - type: textInput
+        name: healthCheckPath
+        label: _("Health check path")
+        hint: _("HTTP path used for the health request, e.g. /health.")
+        value: "/"
+        modifiers:
+          - type: visible
+            constraint:
+              operator: and
+              arg0:
+                operator: in
+                arg0:
+                  prop: kind
+                arg1: ["tcp", "http", "https", "tcpmux"]
+              arg1:
+                operator: eq
+                arg0:
+                  prop: healthCheckType
+                arg1: "http"
+      - type: numberInput
+        name: healthCheckInterval
+        label: _("Check interval (seconds)")
+        value: 10
+        validators:
+          min: 0
+        modifiers:
+          - type: visible
+            constraint:
+              operator: and
+              arg0:
+                operator: in
+                arg0:
+                  prop: kind
+                arg1: ["tcp", "http", "https", "tcpmux"]
+              arg1:
+                operator: ne
+                arg0:
+                  prop: healthCheckType
+                arg1: ""
+      - type: numberInput
+        name: healthCheckTimeout
+        label: _("Check timeout (seconds)")
+        value: 3
+        validators:
+          min: 0
+        modifiers:
+          - type: visible
+            constraint:
+              operator: and
+              arg0:
+                operator: in
+                arg0:
+                  prop: kind
+                arg1: ["tcp", "http", "https", "tcpmux"]
+              arg1:
+                operator: ne
+                arg0:
+                  prop: healthCheckType
+                arg1: ""
+      - type: numberInput
+        name: healthCheckMaxFailed
+        label: _("Failures before offline")
+        value: 1
+        validators:
+          min: 0
+        modifiers:
+          - type: visible
+            constraint:
+              operator: and
+              arg0:
+                operator: in
+                arg0:
+                  prop: kind
+                arg1: ["tcp", "http", "https", "tcpmux"]
+              arg1:
+                operator: ne
+                arg0:
+                  prop: healthCheckType
+                arg1: ""
+
+      - type: divider
+        title: _("Advanced")
+      - type: textarea
+        name: extra
+        label: _("Extra TOML lines")
+        hint: _("Verbatim lines inserted inside this proxy/visitor table (scalar key = value lines only, placed before sub-tables). Invalid TOML prevents frpc from starting.")
+        rows: 4
+        monospace: true
+        value: ""
+    buttons:
+      - template: cancel
+        execute:
+          type: url
+          url: "/services/frpc/proxies"
+      - template: submit

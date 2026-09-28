@@ -1,0 +1,32 @@
+#!/usr/bin/env dash
+#
+# This file is part of OpenMediaVault.
+#
+# @license   https://www.gnu.org/licenses/gpl.html GPL Version 3
+# @author    fffeng99999
+#
+# OpenMediaVault is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# any later version.
+
+set -e
+
+case "$1" in
+	upgrade|failed-upgrade|abort-install|abort-upgrade|disappear)
+	;;
+
+	remove)
+		# Stop the native service if it exists. A Docker container
+		# managed by the user is intentionally never touched.
+		deb-systemd-invoke stop frpc.service 2>/dev/null || true
+		deb-systemd-helper disable frpc.service 2>/dev/null || true
+	;;
+
+	*)
+		echo "prerm called with unknown argument '$1'" >&2
+		exit 1
+	;;
+esac
+
+exit 0
