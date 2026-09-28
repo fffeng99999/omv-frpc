@@ -13,10 +13,11 @@ user = {{ q(config.userPrefix) }}
 {% endif %}
 loginFailExit = {{ b(config.loginFailExit | default(true)) }}
 
-{% if config.includes is iterable and config.includes is not string and config.includes | length > 0 %}
+{% set include_list = (config.includes if config.includes is iterable and config.includes is not string else []) | select | list %}
+{% if include_list | length > 0 %}
 includes = [
-{% for inc in config.includes %}
-  {{ q(inc) }},
+{% for inc in include_list %}
+  {{ q(inc | trim) }},
 {% endfor %}
 ]
 {% endif %}
@@ -46,6 +47,9 @@ dialServerTimeout = {{ config.dialTimeout }}
 {% if config.poolCount | default(0) | int > 0 %}
 poolCount = {{ config.poolCount }}
 {% endif %}
+{% if config.tcpMuxEnable | default(true) | to_bool %}
+tcpMux = true
+{% endif %}
 
 {% if config.tlsEnable | default(true) | to_bool %}
 [transport.tls]
@@ -55,17 +59,11 @@ serverName = {{ q(config.tlsServerName) }}
 {% endif %}
 {% endif %}
 
-{% if config.tcpMuxEnable | default(true) | to_bool %}
-[transport.multiplexer]
-enable = true
-{% endif %}
-
 [log]
 level = "{{ config.logLevel | default('info') }}"
 {% if config.logMaxDays | default(0) | int > 0 %}
 maxDays = {{ config.logMaxDays }}
 {% endif %}
-printContent = {{ b(config.logPrintContent | default(false)) }}
 
 {% if config.webEnable | default(false) | to_bool %}
 [webServer]
@@ -79,9 +77,10 @@ password = {{ q(config.webPassword) }}
 {% endif %}
 {% endif %}
 
-{% if config.meta is iterable and config.meta is not string and config.meta | length > 0 %}
-[meta]
-{% for line in config.meta %}
+{% set meta_list = (config.meta if config.meta is iterable and config.meta is not string else []) | select | list %}
+{% if meta_list | length > 0 %}
+[metadatas]
+{% for line in meta_list %}
 {% set parts = line.split('=', 1) %}
 {% if parts | length == 2 %}
 {{ q(parts[0] | trim) }} = {{ q(parts[1] | trim) }}
@@ -98,11 +97,12 @@ password = {{ q(config.webPassword) }}
 {% endif %}
 {% endif %}
 {% for p in ns.list if p.enable | default(true) | to_bool %}
+{% set kind = p.kind | default('tcp') %}
 {% if p.role | default('server') == 'visitor' %}
 
 [[visitors]]
 name = {{ q(p.name) }}
-type = "{{ p.kind }}"
+type = "{{ kind }}"
 {% if p.serverName | default('') %}
 serverName = {{ q(p.serverName) }}
 {% endif %}
@@ -123,21 +123,43 @@ bindPort = {{ p.bindPort }}
 
 [[proxies]]
 name = {{ q(p.name) }}
-type = "{{ p.kind }}"
+type = "{{ kind }}"
 {% if p.localIP | default('') %}
 localIP = {{ q(p.localIP) }}
 {% endif %}
 {% if p.localPort | default(0) | int > 0 %}
 localPort = {{ p.localPort }}
 {% endif %}
-{% if p.kind in ['tcp', 'udp'] and p.remotePort is defined and p.remotePort | int >= 0 and p.remotePort | int != 0 %}
+{% if kind in ['tcp', 'udp'] and p.remotePort is defined and p.remotePort | int >= 0 and p.remotePort | int != 0 %}
 remotePort = {{ p.remotePort }}
 {% endif %}
-{% if p.secretKey | default('') %}
+{# frpc rejects keys that do not belong to the selected proxy type,
+   so every type specific option below is gated by kind. #}
+{% if kind in ['stcp', 'xtcp', 'sudp'] and p.secretKey | default('') %}
 secretKey = {{ q(p.secretKey) }}
 {% endif %}
+{% if kind in ['http', 'https', 'tcpmux'] %}
 {% if p.subdomain | default('') %}
 subdomain = {{ q(p.subdomain) }}
+{% endif %}
+{% if p.customDomains is iterable and p.customDomains is not string and p.customDomains | length > 0 %}
+customDomains = [
+{% for d in p.customDomains %}
+  {{ q(d) }},
+{% endfor %}
+]
+{% endif %}
+{% endif %}
+{% if kind == 'tcpmux' %}
+multiplexer = {{ q(p.multiplexer | default('') or 'httpconnect') }}
+{% endif %}
+{% if kind == 'http' %}
+{% if p.locations is iterable and p.locations is not string and p.locations | length > 0 %}
+locations = [
+{% for d in p.locations %}
+  {{ q(d) }},
+{% endfor %}
+]
 {% endif %}
 {% if p.hostHeaderRewrite | default('') %}
 hostHeaderRewrite = {{ q(p.hostHeaderRewrite) }}
@@ -148,19 +170,6 @@ httpUser = {{ q(p.httpUser) }}
 {% if p.httpPassword | default('') %}
 httpPassword = {{ q(p.httpPassword) }}
 {% endif %}
-{% if p.customDomains is iterable and p.customDomains is not string and p.customDomains | length > 0 %}
-customDomains = [
-{% for d in p.customDomains %}
-  {{ q(d) }},
-{% endfor %}
-]
-{% endif %}
-{% if p.locations is iterable and p.locations is not string and p.locations | length > 0 %}
-locations = [
-{% for d in p.locations %}
-  {{ q(d) }},
-{% endfor %}
-]
 {% endif %}
 {% if p.extra | default('') %}
 # ---- Extra proxy settings (scalar key = value lines only) ----

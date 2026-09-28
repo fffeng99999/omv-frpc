@@ -230,12 +230,6 @@ msgstr "紀錄保留天數"
 msgid "0 keeps logs indefinitely."
 msgstr "0 表示永久保留。"
 
-msgid "Print proxied content"
-msgstr "列印代理內容"
-
-msgid "Log the content of each request (verbose, for debugging only)."
-msgstr "記錄每個請求的內容（非常詳細，僅供偵錯）。"
-
 msgid "Management (frpc admin web server)"
 msgstr "管理（frpc 管理 Web 服務）"
 
@@ -448,6 +442,12 @@ msgstr "路徑"
 
 msgid "Only forward the given URL paths, e.g. /api or /static."
 msgstr "僅轉發指定的 URL 路徑，例如 /api 或 /static。"
+
+msgid "Multiplexer"
+msgstr "多工器"
+
+msgid "Multiplexer used by tcpmux proxies. frp requires one; httpconnect is the standard value."
+msgstr "tcpmux 代理使用的多工器。frp 要求必須設定，標準值為 httpconnect。"
 
 msgid "Host header rewrite"
 msgstr "重寫 Host 標頭"

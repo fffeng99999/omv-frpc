@@ -231,11 +231,6 @@ data:
         value: 3
         validators:
           min: 0
-      - type: checkbox
-        name: logPrintContent
-        label: _("Print proxied content")
-        hint: _("Log the content of each request (verbose, for debugging only).")
-        value: false
 
       - type: divider
         title: _("Management (frpc admin web server)")

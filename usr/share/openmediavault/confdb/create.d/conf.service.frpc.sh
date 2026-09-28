@@ -41,7 +41,6 @@ set -e
 #       <loginFailExit>1</loginFailExit>
 #       <logLevel>info</logLevel>
 #       <logMaxDays>3</logMaxDays>
-#       <logPrintContent>0</logPrintContent>
 #       <webEnable>0</webEnable>
 #       <webAddr>127.0.0.1</webAddr>
 #       <webPort>7400</webPort>
@@ -77,7 +76,6 @@ if ! omv_config_exists "/config/services/frpc"; then
 	omv_config_add_key "/config/services/frpc" "loginFailExit" "1"
 	omv_config_add_key "/config/services/frpc" "logLevel" "info"
 	omv_config_add_key "/config/services/frpc" "logMaxDays" "3"
-	omv_config_add_key "/config/services/frpc" "logPrintContent" "0"
 	omv_config_add_key "/config/services/frpc" "webEnable" "0"
 	omv_config_add_key "/config/services/frpc" "webAddr" "127.0.0.1"
 	omv_config_add_key "/config/services/frpc" "webPort" "7400"

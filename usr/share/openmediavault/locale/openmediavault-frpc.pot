@@ -232,12 +232,6 @@ msgstr ""
 msgid "0 keeps logs indefinitely."
 msgstr ""
 
-msgid "Print proxied content"
-msgstr ""
-
-msgid "Log the content of each request (verbose, for debugging only)."
-msgstr ""
-
 msgid "Management (frpc admin web server)"
 msgstr ""
 
@@ -449,6 +443,12 @@ msgid "Locations"
 msgstr ""
 
 msgid "Only forward the given URL paths, e.g. /api or /static."
+msgstr ""
+
+msgid "Multiplexer"
+msgstr ""
+
+msgid "Multiplexer used by tcpmux proxies. frp requires one; httpconnect is the standard value."
 msgstr ""
 
 msgid "Host header rewrite"

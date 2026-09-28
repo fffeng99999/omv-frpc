@@ -46,7 +46,7 @@ class OMVRpcServiceFrpc extends \OMV\Rpc\ServiceAbstract
         "protocol", "tlsEnable", "tlsServerName", "tcpMuxEnable",
         "poolCount", "heartbeatInterval", "heartbeatTimeout", "dialTimeout",
         "proxyUrl", "dnsServer", "loginFailExit",
-        "logLevel", "logMaxDays", "logPrintContent",
+        "logLevel", "logMaxDays",
         "webEnable", "webAddr", "webPort", "webUser", "webPassword",
         "meta", "includes", "rawConfig"
     ];
@@ -137,6 +137,21 @@ class OMVRpcServiceFrpc extends \OMV\Rpc\ServiceAbstract
         $object["activeConfigPath"] = ("native" === $object["backend"])
             ? "/etc/frp/frpc.toml"
             : ($object["dockerConfigPath"] ?? "");
+
+        // OMV materialises array properties as empty XML elements, which
+        // are read back as a list holding one empty string. Normalise them
+        // so the Workbench tag inputs always receive real arrays.
+        foreach (["meta", "includes"] as $field) {
+            $values = $object[$field] ?? [];
+            if (!is_array($values)) {
+                $values = [];
+            }
+            $object[$field] = array_values(array_filter($values,
+                function ($value) {
+                    return "" !== trim((string)$value);
+                }
+            ));
+        }
         return $object;
     }
 

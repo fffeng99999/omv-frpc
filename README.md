@@ -42,7 +42,7 @@ Two pages under **Services → FRP Client**.
 - **Transport**: `tcp` / `kcp` / `quic` / `websocket` / `wss`, TLS with optional SNI
   server name, TCP multiplexing, connection pool, heartbeat interval/timeout, dial
   timeout, HTTP/SOCKS5 proxy URL, custom DNS server, exit-on-login-failure
-- **Log**: level, retention in days, print proxied content
+- **Log**: level, retention in days
 - **Management**: frpc admin web server (address / port / user / password) — required
   for hot reload and for the live per-proxy status column
 - **Advanced**: client metadata (`key=value`), include files, and a raw TOML escape

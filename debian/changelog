@@ -1,3 +1,25 @@
+openmediavault-frpc (8.0.4) stable; urgency=medium
+
+  * Make the generated frpc.toml valid for the bundled frpc 0.71.0:
+    - Remove the "Print proxied content" option; it wrote an unsupported
+      "printContent" key into [log], so frpc refused to start with
+      'json: unknown field "printContent"'.
+    - Write the client metadata to [metadatas] instead of the
+      unsupported [meta] table.
+    - Write transport multiplexing as tcpMux = true instead of the
+      unsupported [transport.multiplexer] table.
+    - Emit type specific proxy keys only for the proxy types frpc
+      accepts them for: secretKey for stcp/xtcp/sudp; subdomain and
+      customDomains for http/https/tcpmux; locations, hostHeaderRewrite,
+      httpUser and httpPassword for http only.
+    - Skip empty entries when rendering "includes" and "meta". OMV
+      stores empty array properties as empty XML elements, which were
+      rendered as includes = [""].
+  * The proxy form shows subdomain and custom domains for tcpmux (frp
+    requires at least one of them) and host header rewrite for http only.
+
+ -- ${GITHUB_USER}  Mon, 28 Sep 2026 23:00:00 +0800
+
 openmediavault-frpc (8.0.3) stable; urgency=medium
 
   * Salt state fix: the native backend branch declared the state ID

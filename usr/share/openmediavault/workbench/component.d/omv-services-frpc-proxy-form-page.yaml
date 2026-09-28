@@ -210,7 +210,7 @@ data:
               operator: in
               arg0:
                 prop: kind
-              arg1: ["http", "https"]
+              arg1: ["http", "https", "tcpmux"]
       - type: tagInput
         name: customDomains
         label: _("Custom domains")
@@ -222,7 +222,7 @@ data:
               operator: in
               arg0:
                 prop: kind
-              arg1: ["http", "https"]
+              arg1: ["http", "https", "tcpmux"]
       - type: tagInput
         name: locations
         label: _("Locations")
@@ -236,6 +236,18 @@ data:
                 prop: kind
               arg1: ["http"]
       - type: textInput
+        name: multiplexer
+        label: _("Multiplexer")
+        hint: _("Multiplexer used by tcpmux proxies. frp requires one; httpconnect is the standard value.")
+        value: "httpconnect"
+        modifiers:
+          - type: visible
+            constraint:
+              operator: eq
+              arg0:
+                prop: kind
+              arg1: "tcpmux"
+      - type: textInput
         name: hostHeaderRewrite
         label: _("Host header rewrite")
         value: ""
@@ -245,7 +257,7 @@ data:
               operator: in
               arg0:
                 prop: kind
-              arg1: ["http", "https"]
+              arg1: ["http"]
       - type: textInput
         name: httpUser
         label: _("HTTP auth username")
