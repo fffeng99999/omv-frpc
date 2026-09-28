@@ -1,9 +1,9 @@
 Format: https://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
 Upstream-Name: openmediavault-frpc
-Source: https://github.com/fffeng99999/omv-frpc
+Source: https://github.com/${GITHUB_USER}/omv-frpc
 
 Files: *
-Copyright: 2026 fffeng99999
+Copyright: 2026 ${GITHUB_USER}
 License: GPL-3+
 
 License: GPL-3+

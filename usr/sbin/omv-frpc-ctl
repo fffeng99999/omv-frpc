@@ -3,7 +3,7 @@
 # This file is part of OpenMediaVault.
 #
 # @license   https://www.gnu.org/licenses/gpl.html GPL Version 3
-# @author    fffeng99999
+# @author    ${GITHUB_USER}
 #
 # Backend-agnostic control helper for the openmediavault-frpc plugin.
 # It is called by the engined RPC service and by the Salt state.

@@ -19,4 +19,4 @@ openmediavault-frpc (8.0.1) stable; urgency=medium
       frpc.toml preview.
     - Simplified and Traditional Chinese translations included.
 
- -- fffeng99999  Mon, 28 Sep 2026 18:00:00 +0800
+ -- ${GITHUB_USER}  Mon, 28 Sep 2026 18:00:00 +0800
