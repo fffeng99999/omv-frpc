@@ -98,7 +98,7 @@ The default Docker backend manages a container that must already exist.
 2. Install it via CLI on the NAS:
 
    ```bash
-   apt install ./openmediavault-frpc_8.0.1_amd64.deb
+   apt install ./openmediavault-frpc_<version>_<arch>.deb
    ```
 
 3. Open **Services → FRP Client** and fill in:
