@@ -42,7 +42,7 @@ class OMVRpcServiceFrpc extends \OMV\Rpc\ServiceAbstract
     private $settingsFields = [
         "enable", "backend",
         "dockerContainer", "dockerConfigPath", "dockerContainerConfigPath",
-        "serverAddr", "serverPort", "user", "token",
+        "serverAddr", "serverPort", "userPrefix", "token",
         "protocol", "tlsEnable", "tlsServerName", "tcpMuxEnable",
         "poolCount", "heartbeatInterval", "heartbeatTimeout", "dialTimeout",
         "proxyUrl", "dnsServer", "loginFailExit",

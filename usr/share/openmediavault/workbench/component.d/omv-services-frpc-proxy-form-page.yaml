@@ -362,7 +362,7 @@ data:
       - type: divider
         title: _("Load balancer")
       - type: textInput
-        name: group
+        name: loadBalancerGroup
         label: _("Group")
         hint: _("Proxies with the same group name load-balance connections.")
         value: ""

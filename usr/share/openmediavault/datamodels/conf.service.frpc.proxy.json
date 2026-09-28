@@ -116,7 +116,7 @@
 			"type": "string",
 			"default": ""
 		},
-		"group": {
+		"loadBalancerGroup": {
 			"type": "string",
 			"default": ""
 		},

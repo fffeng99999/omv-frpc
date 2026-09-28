@@ -8,8 +8,8 @@
 
 serverAddr = {{ q(config.serverAddr) }}
 serverPort = {{ config.serverPort }}
-{% if config.user | default('') %}
-user = {{ q(config.user) }}
+{% if config.userPrefix | default('') %}
+user = {{ q(config.userPrefix) }}
 {% endif %}
 loginFailExit = {{ b(config.loginFailExit | default(true)) }}
 
@@ -178,9 +178,9 @@ bandwidthLimitMode = "{{ p.bandwidthLimitMode | default('client') }}"
 proxyProtocolVersion = "{{ p.proxyProtocolVersion }}"
 {% endif %}
 {% endif %}
-{% if p.group | default('') %}
+{% if p.loadBalancerGroup | default('') %}
 [proxies.loadBalancer]
-group = {{ q(p.group) }}
+group = {{ q(p.loadBalancerGroup) }}
 {% if p.groupKey | default('') %}
 groupKey = {{ q(p.groupKey) }}
 {% endif %}

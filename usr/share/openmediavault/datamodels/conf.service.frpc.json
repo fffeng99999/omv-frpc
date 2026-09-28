@@ -38,7 +38,7 @@
 			"maximum": 65535,
 			"default": 7000
 		},
-		"user": {
+		"userPrefix": {
 			"type": "string",
 			"default": ""
 		},
@@ -234,7 +234,7 @@
 							"httpPassword": {
 								"type": "string"
 							},
-							"group": {
+							"loadBalancerGroup": {
 								"type": "string"
 							},
 							"groupKey": {

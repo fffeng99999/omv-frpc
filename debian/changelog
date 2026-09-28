@@ -1,3 +1,14 @@
+openmediavault-frpc (8.0.2) stable; urgency=medium
+
+  * Fix configuration read/write failure ("Failed to index key 'user' of
+    'user.0'") caused by data model property names that collide with the
+    OMV reserved configuration key list ($enums). Rename the settings
+    "user" property to "userPrefix" and the proxy "group" property to
+    "loadBalancerGroup". Form labels, translations and the generated
+    frpc.toml keys (user, loadBalancer.group) are unchanged.
+
+ -- ${GITHUB_USER}  Mon, 28 Sep 2026 22:30:00 +0800
+
 openmediavault-frpc (8.0.1) stable; urgency=medium
 
   * Initial release: FRP client (frpc) management plugin for

@@ -37,7 +37,7 @@ Two pages under **Services → FRP Client**.
 - Docker backend: container name, the **host path** of `frpc.toml` (must be
   bind-mounted into the container) and the container-side path (used for `-c` and for
   hot reload)
-- **Server**: address, port, optional proxy-name prefix (`user`)
+- **Server**: address, port, optional proxy-name prefix (`userPrefix`)
 - **Authentication**: shared token
 - **Transport**: `tcp` / `kcp` / `quic` / `websocket` / `wss`, TLS with optional SNI
   server name, TCP multiplexing, connection pool, heartbeat interval/timeout, dial

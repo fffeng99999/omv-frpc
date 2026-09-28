@@ -26,7 +26,7 @@ set -e
 #       <dockerContainerConfigPath>/etc/frp/frpc.toml</dockerContainerConfigPath>
 #       <serverAddr></serverAddr>
 #       <serverPort>7000</serverPort>
-#       <user></user>
+#       <userPrefix></userPrefix>
 #       <token></token>
 #       <protocol>tcp</protocol>
 #       <tlsEnable>1</tlsEnable>
@@ -62,7 +62,7 @@ if ! omv_config_exists "/config/services/frpc"; then
 	omv_config_add_key "/config/services/frpc" "dockerContainerConfigPath" "/etc/frp/frpc.toml"
 	omv_config_add_key "/config/services/frpc" "serverAddr" ""
 	omv_config_add_key "/config/services/frpc" "serverPort" "7000"
-	omv_config_add_key "/config/services/frpc" "user" ""
+	omv_config_add_key "/config/services/frpc" "userPrefix" ""
 	omv_config_add_key "/config/services/frpc" "token" ""
 	omv_config_add_key "/config/services/frpc" "protocol" "tcp"
 	omv_config_add_key "/config/services/frpc" "tlsEnable" "1"

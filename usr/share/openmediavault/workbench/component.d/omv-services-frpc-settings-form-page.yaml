@@ -111,7 +111,7 @@ data:
           max: 65535
           patternType: port
       - type: textInput
-        name: user
+        name: userPrefix
         label: _("Proxy name prefix")
         hint: _("Optional. Proxy names are prefixed with this value ({user}.{proxy}) on the server.")
         value: ""
