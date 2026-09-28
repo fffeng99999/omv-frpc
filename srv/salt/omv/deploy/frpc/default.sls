@@ -57,6 +57,7 @@ create_frpc_systemd_unit_file:
     - name: /etc/systemd/system/frpc.service
     - source:
       - salt://{{ tpldir }}/files/frpc.service.j2
+    - template: jinja
     - user: root
     - group: root
     - mode: '0644'

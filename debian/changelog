@@ -1,3 +1,13 @@
+openmediavault-frpc (8.0.5) stable; urgency=medium
+
+  * Render the generated systemd unit file as a Jinja template. The
+    state did not pass "template: jinja", so the literal
+    "{{ pillar['headers']['multiline'] }}" was written as line 1 of
+    /etc/systemd/system/frpc.service and systemd logged "Assignment
+    outside of section. Ignoring." on every invocation.
+
+ -- ${GITHUB_USER}  Mon, 28 Sep 2026 23:30:00 +0800
+
 openmediavault-frpc (8.0.4) stable; urgency=medium
 
   * Make the generated frpc.toml valid for the bundled frpc 0.71.0:
