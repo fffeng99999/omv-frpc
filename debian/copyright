@@ -6,6 +6,13 @@ Files: *
 Copyright: 2026 ${GITHUB_USER}
 License: GPL-3+
 
+Files: usr/bin/frpc
+Copyright: fatedier and frp contributors
+License: Apache-2.0
+Comment: The frpc binary is downloaded from the upstream project
+ https://github.com/fatedier/frp at package build time and redistributed
+ in this package. Upstream ships no separate NOTICE file.
+
 License: GPL-3+
  This package is free software; you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
@@ -20,9 +27,9 @@ License: GPL-3+
  On Debian systems, the complete text of the GNU General
  Public License version 3 can be found in "/usr/share/common-licenses/GPL-3".
 
-Files: usr/bin/frpc
-Copyright: fatedier and frp contributors
 License: Apache-2.0
- The bundled frpc binary is downloaded from the upstream project
- https://github.com/fatedier/frp at package build time and is licensed
- under the Apache License, version 2.0.
+ The bundled frpc binary is licensed under the Apache License, version 2.0
+ (https://www.apache.org/licenses/LICENSE-2.0).
+ .
+ On Debian systems, the complete text of the Apache License 2.0 can be
+ found in "/usr/share/common-licenses/Apache-2.0".
