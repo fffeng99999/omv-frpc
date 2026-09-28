@@ -50,6 +50,8 @@ render_frpc_config:
 
 {% if backend == 'native' %}
 
+{% if config.enable | to_bool %}
+
 create_frpc_systemd_unit_file:
   file.managed:
     - name: /etc/systemd/system/frpc.service
@@ -65,8 +67,6 @@ frpc_systemctl_daemon_reload:
     - onchanges:
       - file: create_frpc_systemd_unit_file
 
-{% if config.enable | to_bool %}
-
 start_frpc_service:
   service.running:
     - name: frpc
@@ -77,10 +77,14 @@ start_frpc_service:
 
 {% else %}
 
+# The native unit only exists while the service is enabled. Salt
+# requires every state ID to be unique inside one rendered SLS, so the
+# enabled and disabled branches must not share state IDs.
 stop_frpc_service:
   service.dead:
     - name: frpc
     - enable: False
+    - onlyif: test -f /etc/systemd/system/frpc.service
 
 remove_frpc_systemd_unit_file:
   file.absent:
@@ -89,6 +93,8 @@ remove_frpc_systemd_unit_file:
 frpc_systemctl_daemon_reload:
   module.run:
     - service.systemctl_reload:
+    - onchanges:
+      - file: remove_frpc_systemd_unit_file
 
 {% endif %}
 

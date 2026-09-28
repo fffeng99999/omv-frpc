@@ -1,3 +1,13 @@
+openmediavault-frpc (8.0.3) stable; urgency=medium
+
+  * Salt state fix: the native backend branch declared the state ID
+    "frpc_systemctl_daemon_reload" twice when the service was disabled,
+    so "Apply" failed with "found conflicting ID". The systemd unit is
+    now created only while the service is enabled, and stopping the
+    service is skipped when no unit file exists.
+
+ -- ${GITHUB_USER}  Mon, 28 Sep 2026 22:45:00 +0800
+
 openmediavault-frpc (8.0.2) stable; urgency=medium
 
   * Fix configuration read/write failure ("Failed to index key 'user' of
