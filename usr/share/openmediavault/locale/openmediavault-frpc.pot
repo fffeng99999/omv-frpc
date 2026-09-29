@@ -1,7 +1,7 @@
 # Translation template for openmediavault-frpc.
-# Copyright (C) 2026 ${GITHUB_USER}
+# Copyright (C) 2026 fffeng99999
 # This file is distributed under the same license as the openmediavault-frpc package.
-# ${GITHUB_USER}, 2026.
+# fffeng99999, 2026.
 #
 #, fuzzy
 msgid ""

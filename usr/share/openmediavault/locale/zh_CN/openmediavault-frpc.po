@@ -1,4 +1,4 @@
-# Copyright (C) 2026 ${GITHUB_USER}
+# Copyright (C) 2026 fffeng99999
 # This file is distributed under the same license as the openmediavault-frpc package.
 #
 msgid ""
@@ -7,7 +7,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-09-28 18:00+0800\n"
 "PO-Revision-Date: 2026-09-28 18:00+0800\n"
-"Last-Translator: ${GITHUB_USER}\n"
+"Last-Translator: fffeng99999\n"
 "Language-Team: Chinese (Simplified)\n"
 "Language: zh_CN\n"
 "MIME-Version: 1.0\n"

@@ -1,3 +1,17 @@
+openmediavault-frpc (8.0.10) stable; urgency=medium
+
+  * Mark the read-only status fields (service status, frpc version and
+    generated configuration file) with 'submitValue: false'. These values
+    are derived at read time and are not part of the configuration object,
+    so they must never be sent back by 'Frpc.set' -- this matches how the
+    core compose settings page declares its read-only status fields.
+  * Note for upgrades: the Workbench front end loads route-config.json
+    once at application start, so a full reload (Ctrl+F5 or a new tab) is
+    required after installing this package. A plain in-app navigation
+    keeps the previously cached component configuration.
+
+ -- fffeng99999  Tue, 29 Sep 2026 21:35:00 +0800
+
 openmediavault-frpc (8.0.9) stable; urgency=medium
 
   * Fix the FRP Client settings page showing empty values even though the
@@ -13,7 +27,7 @@ openmediavault-frpc (8.0.9) stable; urgency=medium
   * Frpc.get now validates the method context (administrator only), like
     every other write/enquiry method of this service.
 
- -- ${GITHUB_USER}  Tue, 29 Sep 2026 21:00:00 +0800
+ -- fffeng99999  Tue, 29 Sep 2026 21:00:00 +0800
 
 openmediavault-frpc (8.0.8) stable; urgency=medium
 
@@ -26,7 +40,7 @@ openmediavault-frpc (8.0.8) stable; urgency=medium
     selected proxy type. The fields are now laid out flat, like the core
     network interfaces form.
 
- -- ${GITHUB_USER}  Tue, 29 Sep 2026 19:00:00 +0800
+ -- fffeng99999  Tue, 29 Sep 2026 19:00:00 +0800
 
 openmediavault-frpc (8.0.7) stable; urgency=medium
 
@@ -51,7 +65,7 @@ openmediavault-frpc (8.0.7) stable; urgency=medium
     value via typeConfig (the doModifier() code reads typeConfig, not a
     top-level 'value' key).
 
- -- ${GITHUB_USER}  Tue, 29 Sep 2026 18:30:00 +0800
+ -- fffeng99999  Tue, 29 Sep 2026 18:30:00 +0800
 
 openmediavault-frpc (8.0.6) stable; urgency=medium
 
@@ -73,7 +87,7 @@ openmediavault-frpc (8.0.6) stable; urgency=medium
     default to "native" instead of "docker". Existing configurations
     keep their stored backend; only fresh installs get the new default.
 
- -- ${GITHUB_USER}  Tue, 29 Sep 2026 10:00:00 +0800
+ -- fffeng99999  Tue, 29 Sep 2026 10:00:00 +0800
 
 openmediavault-frpc (8.0.5) stable; urgency=medium
 
@@ -83,7 +97,7 @@ openmediavault-frpc (8.0.5) stable; urgency=medium
     /etc/systemd/system/frpc.service and systemd logged "Assignment
     outside of section. Ignoring." on every invocation.
 
- -- ${GITHUB_USER}  Mon, 28 Sep 2026 23:30:00 +0800
+ -- fffeng99999  Mon, 28 Sep 2026 23:30:00 +0800
 
 openmediavault-frpc (8.0.4) stable; urgency=medium
 
@@ -105,7 +119,7 @@ openmediavault-frpc (8.0.4) stable; urgency=medium
   * The proxy form shows subdomain and custom domains for tcpmux (frp
     requires at least one of them) and host header rewrite for http only.
 
- -- ${GITHUB_USER}  Mon, 28 Sep 2026 23:00:00 +0800
+ -- fffeng99999  Mon, 28 Sep 2026 23:00:00 +0800
 
 openmediavault-frpc (8.0.3) stable; urgency=medium
 
@@ -115,7 +129,7 @@ openmediavault-frpc (8.0.3) stable; urgency=medium
     now created only while the service is enabled, and stopping the
     service is skipped when no unit file exists.
 
- -- ${GITHUB_USER}  Mon, 28 Sep 2026 22:45:00 +0800
+ -- fffeng99999  Mon, 28 Sep 2026 22:45:00 +0800
 
 openmediavault-frpc (8.0.2) stable; urgency=medium
 
@@ -126,7 +140,7 @@ openmediavault-frpc (8.0.2) stable; urgency=medium
     "loadBalancerGroup". Form labels, translations and the generated
     frpc.toml keys (user, loadBalancer.group) are unchanged.
 
- -- ${GITHUB_USER}  Mon, 28 Sep 2026 22:30:00 +0800
+ -- fffeng99999  Mon, 28 Sep 2026 22:30:00 +0800
 
 openmediavault-frpc (8.0.1) stable; urgency=medium
 
@@ -149,4 +163,4 @@ openmediavault-frpc (8.0.1) stable; urgency=medium
       frpc.toml preview.
     - Simplified and Traditional Chinese translations included.
 
- -- ${GITHUB_USER}  Mon, 28 Sep 2026 18:00:00 +0800
+ -- fffeng99999  Mon, 28 Sep 2026 18:00:00 +0800

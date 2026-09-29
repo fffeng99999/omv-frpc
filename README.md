@@ -134,7 +134,7 @@ Built in the cloud with GitHub Actions
 Local build (on any Debian-based system, e.g. a container):
 
 ```bash
-sh ./render-vars.sh                 # render the ${GITHUB_USER} placeholders
+sh ./render-vars.sh                 # render the fffeng99999 placeholders
 ./build-deb.sh amd64                # download and stage the upstream frpc binary
 dpkg-buildpackage -us -uc -b -aamd64 -d
 ```
@@ -143,7 +143,7 @@ dpkg-buildpackage -us -uc -b -aamd64 -d
 
 - The plugin is pure declarative: a PHP RPC service plus workbench YAML — there is no
   JavaScript/TypeScript build step.
-- The author name in `debian/*` and in the source headers is a `${GITHUB_USER}`
+- The author name in `debian/*` and in the source headers is a `fffeng99999`
   placeholder. `render-vars.sh` renders it from `debian/variables.env`; CI runs the
   script before `dpkg-buildpackage` and refuses to publish a package that still
   contains a placeholder. **Run it before any local build.**

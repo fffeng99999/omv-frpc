@@ -21,14 +21,17 @@ data:
       - type: textInput
         name: statusText
         label: _("Service status")
+        submitValue: false
         readonly: true
       - type: textInput
         name: version
         label: _("frpc version")
+        submitValue: false
         readonly: true
       - type: textInput
         name: activeConfigPath
         label: _("Generated configuration file")
+        submitValue: false
         readonly: true
 
       - type: divider
