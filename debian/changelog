@@ -1,3 +1,20 @@
+openmediavault-frpc (8.0.9) stable; urgency=medium
+
+  * Fix the FRP Client settings page showing empty values even though the
+    RPC returned the whole configuration: service status, frpc version,
+    generated configuration file, server address, server port and the
+    enabled flag all kept the form defaults. The Workbench form page runs
+    the response through the optional 'request.get.transform' map before
+    writing it into the form, and the transformed object replaces the
+    response instead of being merged into it, so as soon as a 'transform'
+    entry existed the form received only the transformed keys and lost
+    everything else. Remove the transform; the status text is now emitted
+    by the RPC as plain English ("Running"/"Stopped") and displayed as is.
+  * Frpc.get now validates the method context (administrator only), like
+    every other write/enquiry method of this service.
+
+ -- ${GITHUB_USER}  Tue, 29 Sep 2026 21:00:00 +0800
+
 openmediavault-frpc (8.0.8) stable; urgency=medium
 
   * Remove the section dividers from the proxy/visitor form page. The

@@ -118,10 +118,16 @@ class OMVRpcServiceFrpc extends \OMV\Rpc\ServiceAbstract
      */
     public function get($params, $context)
     {
+        $this->validateMethodContext($context, ["role" => OMV_ROLE_ADMINISTRATOR]);
+
         $object = $this->getSettingsObject($context);
 
-        // Service state for the active backend. English msgids; the
-        // frontend translates them with the 'translate' filter.
+        // Service state for the active backend. The status text is
+        // returned as plain English and displayed verbatim: the
+        // Workbench form page 'request.get.transform' option replaces
+        // the whole response with the transformed keys instead of
+        // merging them, which made every other field fall back to its
+        // form default.
         list(, $statusOut) = $this->runCtl(
             array_merge(["is-active"], $this->ctlArgs($object)), false
         );
