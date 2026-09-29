@@ -41,7 +41,7 @@ class Frpc extends \OMV\Engine\Module\ServiceAbstract
 		$object = $db->get("conf.service.frpc");
 		$backend = $object->get("backend");
 		if (empty($backend)) {
-			$backend = "docker";
+			$backend = "native";
 		}
 		$running = false;
 		if ("native" === $backend) {

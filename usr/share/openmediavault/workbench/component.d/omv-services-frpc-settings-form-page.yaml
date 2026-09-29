@@ -44,13 +44,13 @@ data:
         name: backend
         label: _("Backend")
         hint: _("'Docker' manages an already existing frpc container through the docker CLI. 'Native' uses the frpc binary bundled in this package and a generated systemd unit. Only one backend should run at a time.")
-        value: "docker"
+        value: "native"
         store:
           data:
-            - - "docker"
-              - _("Docker container")
             - - "native"
               - _("Native systemd service")
+            - - "docker"
+              - _("Docker container")
       - type: textInput
         name: dockerContainer
         label: _("Docker container name")
@@ -292,12 +292,12 @@ data:
         name: meta
         label: _("Metadata")
         hint: _("Key=value pairs sent to frps for this client, e.g. region=east.")
-        value: []
+        value: ""
       - type: tagInput
         name: includes
         label: _("Include files")
         hint: _("Additional TOML files included by frpc (glob patterns supported), e.g. /etc/frp/conf.d/*.toml.")
-        value: []
+        value: ""
       - type: textarea
         name: rawConfig
         label: _("Custom raw TOML")

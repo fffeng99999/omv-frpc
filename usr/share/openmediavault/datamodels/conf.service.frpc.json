@@ -13,8 +13,8 @@
 		},
 		"backend": {
 			"type": "string",
-			"enum": ["docker", "native"],
-			"default": "docker"
+			"enum": ["native", "docker"],
+			"default": "native"
 		},
 		"dockerContainer": {
 			"type": "string",

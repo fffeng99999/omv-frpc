@@ -28,10 +28,10 @@ Two pages under **Services → FRP Client**.
 
 - **Enabled** – start at boot (native service or Docker restart policy)
 - **Backend** – where frpc actually runs:
-  - `Docker container` (default) – manages an **already existing** frpc container
-    through the Docker CLI. The plugin never creates or removes the container.
-  - `Native systemd service` – uses the `frpc` binary bundled in this package plus a
+  - `Native systemd service` (default) – uses the `frpc` binary bundled in this package plus a
     generated `frpc.service` unit.
+  - `Docker container` – manages an **already existing** frpc container
+    through the Docker CLI. The plugin never creates or removes the container.
   - Only one backend should be running at a time; switching backends clears the other
     side's unit so frpc cannot run twice.
 - Docker backend: container name, the **host path** of `frpc.toml` (must be
@@ -90,7 +90,9 @@ Access control: the navigation entries and every RPC method require the `admin` 
 
 ## Installation
 
-The default Docker backend manages a container that must already exist.
+The default backend is the native systemd service using the `frpc` binary
+bundled in this package; no container is required. The Docker backend
+manages an already existing frpc container instead.
 
 1. Download `openmediavault-frpc_<version>_<arch>.deb` from the latest
    [GitHub Release](https://github.com/fffeng99999/omv-frpc/releases)
@@ -102,11 +104,10 @@ The default Docker backend manages a container that must already exist.
    ```
 
 3. Open **Services → FRP Client** and fill in:
-   - *Backend* – `Docker container`
-   - *Docker container name* – the name of the existing container (e.g. `frpc`)
-   - *Configuration file (host path)* – the host path bind-mounted into the container
-     (e.g. `/srv/.../data/appdata/frpc/frpc.toml`)
-   - *Configuration file (container path)* – e.g. `/etc/frp/frpc.toml`
+   - *Backend* – `Native systemd service` (default), or `Docker container`
+     (then also set the *Docker container name*, the *Configuration file
+     (host path)* bind-mounted into the container, and the *Configuration
+     file (container path)*)
    - *Server address*, *Server port* and *Token*
    - tick **Enabled**, then click **Save** and **Apply**
 

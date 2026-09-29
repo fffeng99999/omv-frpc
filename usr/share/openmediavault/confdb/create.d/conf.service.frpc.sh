@@ -20,7 +20,7 @@ set -e
 #   <services>
 #     <frpc>
 #       <enable>0|1</enable>
-#       <backend>docker|native</backend>
+#       <backend>native|docker</backend>
 #       <dockerContainer>frpc</dockerContainer>
 #       <dockerConfigPath>/etc/frp/frpc.toml</dockerConfigPath>
 #       <dockerContainerConfigPath>/etc/frp/frpc.toml</dockerContainerConfigPath>
@@ -55,7 +55,7 @@ set -e
 if ! omv_config_exists "/config/services/frpc"; then
 	omv_config_add_node "/config/services" "frpc"
 	omv_config_add_key "/config/services/frpc" "enable" "0"
-	omv_config_add_key "/config/services/frpc" "backend" "docker"
+	omv_config_add_key "/config/services/frpc" "backend" "native"
 	omv_config_add_key "/config/services/frpc" "dockerContainer" "frpc"
 	omv_config_add_key "/config/services/frpc" "dockerConfigPath" "/etc/frp/frpc.toml"
 	omv_config_add_key "/config/services/frpc" "dockerContainerConfigPath" "/etc/frp/frpc.toml"

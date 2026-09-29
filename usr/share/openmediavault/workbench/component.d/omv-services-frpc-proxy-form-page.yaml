@@ -27,7 +27,6 @@ data:
         validators:
           required: true
           pattern:
-            patternType: regex
             pattern: "^[A-Za-z0-9._-]+$"
             errorData: _("Only letters, digits, dot, underscore and dash are allowed.")
       - type: select
@@ -78,7 +77,7 @@ data:
                 arg0:
                   prop: kind
                 arg1: ["stcp", "xtcp", "sudp"]
-            value: "server"
+            typeConfig: "server"
 
       - type: divider
         title: _("Local service")
@@ -215,7 +214,7 @@ data:
         name: customDomains
         label: _("Custom domains")
         hint: _("One or more domains routed to this proxy.")
-        value: []
+        value: ""
         modifiers:
           - type: visible
             constraint:
@@ -227,7 +226,7 @@ data:
         name: locations
         label: _("Locations")
         hint: _("Only forward the given URL paths, e.g. /api or /static.")
-        value: []
+        value: ""
         modifiers:
           - type: visible
             constraint:

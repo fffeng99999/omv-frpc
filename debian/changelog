@@ -1,3 +1,25 @@
+openmediavault-frpc (8.0.6) stable; urgency=medium
+
+  * Fix the WebUI freezing when the FRP Client page is opened. The
+    Workbench 'tagInput' control reads its value as a string (it calls
+    value.split()), but Frpc.get/getProxy returned the array fields
+    (meta, includes, customDomains, locations) as arrays; a non-empty
+    array threw "value.split is not a function", the formPage block-ui
+    overlay never cleared and the whole SPA navigation got stuck. The
+    RPC now bridges these fields to comma-separated strings (set/setProxy
+    split them back into arrays for the datamodel and the Salt template),
+    and the tagInput defaults in the form YAML are "" instead of [].
+  * Fix the proxy form 'role' modifier: a 'value' modifier reads the new
+    value from typeConfig, not a top-level 'value' key, so the previous
+    form never reset role to 'server'. Use typeConfig: "server".
+  * Make the native systemd backend the default: the datamodel default,
+    the confdb create.d initial value, the Workbench select (native is
+    now the first option), the engined fallbacks and the Salt state all
+    default to "native" instead of "docker". Existing configurations
+    keep their stored backend; only fresh installs get the new default.
+
+ -- ${GITHUB_USER}  Tue, 29 Sep 2026 10:00:00 +0800
+
 openmediavault-frpc (8.0.5) stable; urgency=medium
 
   * Render the generated systemd unit file as a Jinja template. The

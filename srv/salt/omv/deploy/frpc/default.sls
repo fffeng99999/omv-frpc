@@ -18,7 +18,7 @@
 # stack files.
 
 {% set config = salt['omv_conf.get']('conf.service.frpc') %}
-{% set backend = config.backend | default('docker') %}
+{% set backend = config.backend | default('native') %}
 {% if backend == 'native' %}
 {% set target_path = '/etc/frp/frpc.toml' %}
 {% else %}
