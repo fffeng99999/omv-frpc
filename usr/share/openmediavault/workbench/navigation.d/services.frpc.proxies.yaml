@@ -3,6 +3,7 @@ type: navigation-item
 data:
   path: "services.frpc.proxies"
   text: _("Proxies")
+  position: 20
   icon: "mdi:transit-connection"
   url: "/services/frpc/proxies"
   permissions:

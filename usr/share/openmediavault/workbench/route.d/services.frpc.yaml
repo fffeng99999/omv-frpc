@@ -3,6 +3,4 @@ type: route
 data:
   url: "/services/frpc"
   title: _("FRP Client")
-  editing: true
-  notificationTitle: _("Updated FRP client settings.")
-  component: omv-services-frpc-settings-form-page
+  component: omv-services-frpc-navigation-page

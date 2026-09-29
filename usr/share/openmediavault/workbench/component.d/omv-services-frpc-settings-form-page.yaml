@@ -8,6 +8,8 @@ data:
       service: Frpc
       get:
         method: get
+        transform:
+          statusText: "{{ statusText | translate }}"
       post:
         method: set
     hints:

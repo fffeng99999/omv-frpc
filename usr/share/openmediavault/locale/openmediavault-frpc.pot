@@ -22,6 +22,9 @@ msgstr ""
 msgid "Proxies"
 msgstr ""
 
+msgid "Settings"
+msgstr ""
+
 msgid "Updated FRP client settings."
 msgstr ""
 

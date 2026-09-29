@@ -123,11 +123,10 @@ class OMVRpcServiceFrpc extends \OMV\Rpc\ServiceAbstract
         $object = $this->getSettingsObject($context);
 
         // Service state for the active backend. The status text is
-        // returned as plain English and displayed verbatim: the
-        // Workbench form page 'request.get.transform' option replaces
-        // the whole response with the transformed keys instead of
-        // merging them, which made every other field fall back to its
-        // form default.
+        // returned as the English msgid; the Workbench form page runs
+        // it through the 'translate' filter (request.get.transform
+        // merges the transformed keys into the response, so all other
+        // fields are preserved).
         list(, $statusOut) = $this->runCtl(
             array_merge(["is-active"], $this->ctlArgs($object)), false
         );

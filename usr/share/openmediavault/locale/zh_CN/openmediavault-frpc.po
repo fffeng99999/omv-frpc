@@ -20,6 +20,9 @@ msgstr "FRP 客户端"
 msgid "Proxies"
 msgstr "代理"
 
+msgid "Settings"
+msgstr "设置"
+
 msgid "Updated FRP client settings."
 msgstr "FRP 客户端设置已更新。"
 

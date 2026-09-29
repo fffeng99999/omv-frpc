@@ -1,3 +1,30 @@
+openmediavault-frpc (8.0.11) stable; urgency=medium
+
+  * Fix the FRP Client settings page never loading its data (all fields
+    kept their defaults although the backend returned the complete
+    configuration and the service was running). The page was a formPage
+    with 'editing: true' declared on the URL /services/frpc, but that
+    path also owns the child routes /services/frpc/proxies*. The
+    Workbench route injection moves the component of any parent route
+    that has child routes into a synthetic empty-path child route whose
+    route data carries only the component configuration; the 'editing'
+    flag is dropped on the way. FormPageComponent requests its
+    'request.get' method only in editing mode, so Frpc.get was never
+    called and the form kept its YAML defaults. Note that the 8.0.9
+    change assumed 'request.get.transform' replaces the RPC response,
+    which is not the case (RpcObjectResponse.transform merges the
+    transformed keys into the response), so that was not the cause.
+  * Restructure the page layout to the official plugin pattern
+    (openmediavault-clamav): /services/frpc is now a navigationPage
+    listing its sub pages, and the settings form moved to the leaf route
+    /services/frpc/settings which keeps 'editing: true'. Navigation:
+    FRP Client -> Settings (position 10), Proxies (position 20).
+  * Restore the statusText translation on the settings page ('Running'
+    is shown translated again); the removal in 8.0.9 was based on the
+    wrong transform assumption above.
+
+ -- fffeng99999  Tue, 29 Sep 2026 23:05:00 +0800
+
 openmediavault-frpc (8.0.10) stable; urgency=medium
 
   * Mark the read-only status fields (service status, frpc version and

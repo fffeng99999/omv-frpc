@@ -14,9 +14,9 @@ The Chinese design study this plugin was built from is kept in
 
 ## Features
 
-Two pages under **Services → FRP Client**.
+Two pages under **Services → FRP Client**: **Settings** and **Proxies**.
 
-### FRP Client (settings)
+### FRP Client → Settings
 
 **Status** (read-only)
 
@@ -103,7 +103,7 @@ manages an already existing frpc container instead.
    apt install ./openmediavault-frpc_<version>_<arch>.deb
    ```
 
-3. Open **Services → FRP Client** and fill in:
+3. Open **Services → FRP Client → Settings** and fill in:
    - *Backend* – `Native systemd service` (default), or `Docker container`
      (then also set the *Docker container name*, the *Configuration file
      (host path)* bind-mounted into the container, and the *Configuration
