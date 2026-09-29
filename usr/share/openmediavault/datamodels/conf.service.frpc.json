@@ -128,18 +128,12 @@
 			"default": ""
 		},
 		"meta": {
-			"type": "array",
-			"items": {
-				"type": "string"
-			},
-			"default": []
+			"type": "string",
+			"default": ""
 		},
 		"includes": {
-			"type": "array",
-			"items": {
-				"type": "string"
-			},
-			"default": []
+			"type": "string",
+			"default": ""
 		},
 		"rawConfig": {
 			"type": "string",
@@ -174,10 +168,10 @@
 								"type": "string"
 							},
 							"localPort": {
-								"type": ["integer", "string"]
+								"type": "integer"
 							},
 							"remotePort": {
-								"type": ["integer", "string"]
+								"type": "integer"
 							},
 							"secretKey": {
 								"type": "string"
@@ -189,7 +183,7 @@
 								"type": "string"
 							},
 							"bindPort": {
-								"type": ["integer", "string"]
+								"type": "integer"
 							},
 							"useEncryption": {
 								"type": "boolean"
@@ -210,16 +204,10 @@
 								"type": "string"
 							},
 							"customDomains": {
-								"type": "array",
-								"items": {
-									"type": "string"
-								}
+								"type": "string"
 							},
 							"locations": {
-								"type": "array",
-								"items": {
-									"type": "string"
-								}
+								"type": "string"
 							},
 							"hostHeaderRewrite": {
 								"type": "string"
@@ -246,13 +234,13 @@
 								"type": "string"
 							},
 							"healthCheckInterval": {
-								"type": ["integer", "string"]
+								"type": "integer"
 							},
 							"healthCheckTimeout": {
-								"type": ["integer", "string"]
+								"type": "integer"
 							},
 							"healthCheckMaxFailed": {
-								"type": ["integer", "string"]
+								"type": "integer"
 							},
 							"extra": {
 								"type": "string"

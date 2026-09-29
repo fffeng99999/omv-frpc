@@ -114,42 +114,6 @@ class OMVRpcServiceFrpc extends \OMV\Rpc\ServiceAbstract
     }
 
     /**
-     * Bridge an OMV array property to the comma-separated string the
-     * Workbench 'tagInput' control expects (it calls value.split()).
-     * Empty values and the empty element OMV materialises for an empty
-     * array are dropped.
-     */
-    private static function arrayToTagString($value): string
-    {
-        if (!is_array($value)) {
-            return "";
-        }
-        $values = array_map(
-            function ($v) { return trim((string)$v); }, $value
-        );
-        $values = array_filter($values, function ($v) { return "" !== $v; });
-        return implode(",", $values);
-    }
-
-    /**
-     * Split the string submitted by a 'tagInput' back into the array the
-     * datamodel and the Salt template expect.
-     */
-    private static function tagStringToArray($value): array
-    {
-        if (is_array($value)) {
-            $value = implode(",", $value);
-        }
-        $value = trim((string)$value);
-        if ("" === $value) {
-            return [];
-        }
-        $parts = preg_split("/[,;]/", $value);
-        $parts = array_map(function ($p) { return trim($p); }, $parts);
-        return array_values(array_filter($parts, function ($p) { return "" !== $p; }));
-    }
-
-    /**
      * Settings object enriched with read-only status information.
      */
     public function get($params, $context)
@@ -174,27 +138,12 @@ class OMVRpcServiceFrpc extends \OMV\Rpc\ServiceAbstract
             ? "/etc/frp/frpc.toml"
             : ($object["dockerConfigPath"] ?? "");
 
-        // The Workbench 'tagInput' control reads its value as a string
-        // (it calls value.split()). OMV stores these fields as arrays
-        // (and materialises an empty array as a list holding one empty
-        // string). Bridge them to a comma-separated string for the form;
-        // set() splits them back to an array for the database/Salt.
-        foreach (["meta", "includes"] as $field) {
-            $object[$field] = self::arrayToTagString($object[$field] ?? null);
-        }
         return $object;
     }
 
     public function set($params, $context)
     {
         $data = array_intersect_key($params, array_flip($this->settingsFields));
-        // The 'tagInput' fields are submitted as comma-separated strings;
-        // split them back into the arrays the datamodel expects.
-        foreach (["meta", "includes"] as $field) {
-            if (array_key_exists($field, $data)) {
-                $data[$field] = self::tagStringToArray($data[$field]);
-            }
-        }
         return \OMV\Rpc\Rpc::call("Config", "set", [
             "id" => "conf.service.frpc",
             "data" => $data
@@ -256,6 +205,17 @@ class OMVRpcServiceFrpc extends \OMV\Rpc\ServiceAbstract
         foreach ($objects as $object) {
             $entry = $object->getAssoc();
             $entry["stateText"] = "";
+            // customDomains/locations are stored as comma-separated
+            // strings; the 'join' cell template expects an array.
+            foreach (["customDomains", "locations"] as $field) {
+                $value = $entry[$field] ?? "";
+                $parts = is_array($value) ? $value
+                    : preg_split("/[,;]/", trim((string)$value));
+                $entry[$field] = array_values(array_filter(
+                    array_map(function ($p) { return trim((string)$p); }, $parts),
+                    function ($p) { return "" !== $p; }
+                ));
+            }
             // Only exposed (enabled) proxies/visitors are reported by
             // the running frpc process; map its live status by name.
             if (!empty($entry["enable"]) && isset($liveStates[$entry["name"] ?? ""])) {
@@ -280,24 +240,12 @@ class OMVRpcServiceFrpc extends \OMV\Rpc\ServiceAbstract
         $this->validateMethodContext($context, ["role" => OMV_ROLE_ADMINISTRATOR]);
         $this->validateMethodParams($params, "rpc.common.objectuuid");
         $db = \OMV\Config\Database::getInstance();
-        $assoc = $db->get("conf.service.frpc.proxy", $params["uuid"])->getAssoc();
-        // 'tagInput' fields are read by the form as comma-separated strings.
-        foreach (["customDomains", "locations"] as $field) {
-            $assoc[$field] = self::arrayToTagString($assoc[$field] ?? null);
-        }
-        return $assoc;
+        return $db->get("conf.service.frpc.proxy", $params["uuid"])->getAssoc();
     }
 
     public function setProxy($params, $context)
     {
         $this->validateMethodContext($context, ["role" => OMV_ROLE_ADMINISTRATOR]);
-
-        // Split the 'tagInput' strings back into arrays for the datamodel.
-        foreach (["customDomains", "locations"] as $field) {
-            if (array_key_exists($field, $params)) {
-                $params[$field] = self::tagStringToArray($params[$field]);
-            }
-        }
 
         $object = new \OMV\Config\ConfigObject("conf.service.frpc.proxy");
         $object->setAssoc($params);

@@ -13,7 +13,7 @@ user = {{ q(config.userPrefix) }}
 {% endif %}
 loginFailExit = {{ b(config.loginFailExit | default(true)) }}
 
-{% set include_list = (config.includes if config.includes is iterable and config.includes is not string else []) | select | list %}
+{% set include_list = (config.includes | default('') | string).replace(';', ',').split(',') | select | list %}
 {% if include_list | length > 0 %}
 includes = [
 {% for inc in include_list %}
@@ -77,7 +77,7 @@ password = {{ q(config.webPassword) }}
 {% endif %}
 {% endif %}
 
-{% set meta_list = (config.meta if config.meta is iterable and config.meta is not string else []) | select | list %}
+{% set meta_list = (config.meta | default('') | string).replace(';', ',').split(',') | select | list %}
 {% if meta_list | length > 0 %}
 [metadatas]
 {% for line in meta_list %}
@@ -142,10 +142,11 @@ secretKey = {{ q(p.secretKey) }}
 {% if p.subdomain | default('') %}
 subdomain = {{ q(p.subdomain) }}
 {% endif %}
-{% if p.customDomains is iterable and p.customDomains is not string and p.customDomains | length > 0 %}
+{% set cd_list = (p.customDomains | default('') | string).replace(';', ',').split(',') | select | list %}
+{% if cd_list | length > 0 %}
 customDomains = [
-{% for d in p.customDomains %}
-  {{ q(d) }},
+{% for d in cd_list %}
+  {{ q(d | trim) }},
 {% endfor %}
 ]
 {% endif %}
@@ -154,10 +155,11 @@ customDomains = [
 multiplexer = {{ q(p.multiplexer | default('') or 'httpconnect') }}
 {% endif %}
 {% if kind == 'http' %}
-{% if p.locations is iterable and p.locations is not string and p.locations | length > 0 %}
+{% set loc_list = (p.locations | default('') | string).replace(';', ',').split(',') | select | list %}
+{% if loc_list | length > 0 %}
 locations = [
-{% for d in p.locations %}
-  {{ q(d) }},
+{% for d in loc_list %}
+  {{ q(d | trim) }},
 {% endfor %}
 ]
 {% endif %}

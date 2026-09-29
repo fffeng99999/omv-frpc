@@ -18,7 +18,7 @@
 		},
 		"name": {
 			"type": "string",
-			"required": true
+			"default": ""
 		},
 		"kind": {
 			"type": "string",
@@ -91,18 +91,12 @@
 			"default": ""
 		},
 		"customDomains": {
-			"type": "array",
-			"items": {
-				"type": "string"
-			},
-			"default": []
+			"type": "string",
+			"default": ""
 		},
 		"locations": {
-			"type": "array",
-			"items": {
-				"type": "string"
-			},
-			"default": []
+			"type": "string",
+			"default": ""
 		},
 		"hostHeaderRewrite": {
 			"type": "string",

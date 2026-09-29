@@ -1,3 +1,28 @@
+openmediavault-frpc (8.0.7) stable; urgency=medium
+
+  * Rework the tagInput fix from 8.0.6 to the official OMV approach: the
+    meta, includes, customDomains and locations fields are now stored as
+    plain comma-separated strings in the datamodel (like the core ftp
+    plugin's tagInput field), instead of arrays bridged in the RPC. The
+    8.0.6 bridge was incomplete: OMV's Config.set cannot write a top-level
+    string array, so saving those fields always failed.
+  * Fix the proxies feature being completely unusable since 8.0.5:
+    - Remove "required": true from the proxy 'name' property. OMV's
+      ConfigObject::validate() passes a Dictionary object to the JSON
+      schema, whose private properties are invisible to get_object_vars(),
+      so any field marked required always failed with "Missing 'required'
+      attribute 'name'" on every read. Core plugins never mark conf model
+      fields required; the UI validator already enforces it.
+    - Change the proxied port fields from the union type
+      ["integer","string"] to "integer" in the main model. Salt's Python
+      datamodel rejects union types, so 'omv-salt deploy run frpc' failed
+      to render as soon as a proxy existed.
+  * The Workbench 'value' modifier for the proxy role field now sets the
+    value via typeConfig (the doModifier() code reads typeConfig, not a
+    top-level 'value' key).
+
+ -- ${GITHUB_USER}  Tue, 29 Sep 2026 18:30:00 +0800
+
 openmediavault-frpc (8.0.6) stable; urgency=medium
 
   * Fix the WebUI freezing when the FRP Client page is opened. The
