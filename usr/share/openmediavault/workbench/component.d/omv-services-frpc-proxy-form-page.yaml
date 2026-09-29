@@ -79,8 +79,6 @@ data:
                 arg1: ["stcp", "xtcp", "sudp"]
             typeConfig: "server"
 
-      - type: divider
-        title: _("Local service")
       - type: textInput
         name: localIP
         label: _("Local IP")
@@ -130,8 +128,6 @@ data:
                   prop: kind
                 arg1: ["tcp", "udp"]
 
-      - type: divider
-        title: _("STCP / XTCP / SUDP")
       - type: passwordInput
         name: secretKey
         label: _("Secret key")
@@ -196,8 +192,6 @@ data:
                 prop: role
               arg1: "visitor"
 
-      - type: divider
-        title: _("HTTP / HTTPS domains")
       - type: textInput
         name: subdomain
         label: _("Subdomain")
@@ -282,8 +276,6 @@ data:
                 prop: kind
               arg1: ["http"]
 
-      - type: divider
-        title: _("Transport options")
       - type: checkbox
         name: useEncryption
         label: _("Encrypt traffic")
@@ -370,8 +362,6 @@ data:
                   prop: kind
                 arg1: ["tcp", "http", "https", "tcpmux"]
 
-      - type: divider
-        title: _("Load balancer")
       - type: textInput
         name: loadBalancerGroup
         label: _("Group")
@@ -396,8 +386,6 @@ data:
                 prop: kind
               arg1: ["tcp", "http", "https", "tcpmux"]
 
-      - type: divider
-        title: _("Health check")
       - type: select
         name: healthCheckType
         label: _("Health check type")
@@ -497,8 +485,6 @@ data:
                   prop: healthCheckType
                 arg1: ""
 
-      - type: divider
-        title: _("Advanced")
       - type: textarea
         name: extra
         label: _("Extra TOML lines")

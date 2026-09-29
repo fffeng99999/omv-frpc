@@ -1,3 +1,16 @@
+openmediavault-frpc (8.0.8) stable; urgency=medium
+
+  * Remove the section dividers from the proxy/visitor form page. The
+    Workbench form modifier machinery can only show/hide elements that
+    wrap a '.mat-form-field' control; a divider title is not a form
+    control, so every conditional section (STCP/XTCP/SUDP, HTTP/HTTPS
+    domains, transport options, load balancer, health check, advanced)
+    rendered as an empty heading whenever its fields were hidden for the
+    selected proxy type. The fields are now laid out flat, like the core
+    network interfaces form.
+
+ -- ${GITHUB_USER}  Tue, 29 Sep 2026 19:00:00 +0800
+
 openmediavault-frpc (8.0.7) stable; urgency=medium
 
   * Rework the tagInput fix from 8.0.6 to the official OMV approach: the
