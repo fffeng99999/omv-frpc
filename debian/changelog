@@ -1,3 +1,23 @@
+openmediavault-frpc (8.0.12+frp0.71.0) stable; urgency=medium
+
+  * Make builds reproducible: the upstream frp version is pinned as the
+    +frpX.Y.Z suffix of the package version and build-deb.sh extracts
+    the download tag from debian/changelog when no explicit tag is
+    given. A tagged release therefore always bundles the exact frp
+    build it was released with; the previous silent 'resolve latest
+    stable' fallback is kept only for untagged local builds and now
+    prints a warning.
+  * Fix the Docker backend status: a missing container is now reported
+    as 'notinstalled' instead of 'stopped' (RPC statusText mapping and
+    translations updated), and the Salt docker start/restart steps skip
+    via 'onlyif' when the container does not exist yet, so Apply no
+    longer fails on a fresh docker backend.
+  * i18n: remove a duplicate 'Server' msgid from the template and align
+    four outdated zh_CN msgids with the template; msgid counts are now
+    in parity across pot/zh_CN/zh_TW.
+
+ -- fffeng99999  Sun, 04 Oct 2026 12:00:00 +0800
+
 openmediavault-frpc (8.0.11) stable; urgency=medium
 
   * Fix the FRP Client settings page never loading its data (all fields

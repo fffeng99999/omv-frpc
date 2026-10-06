@@ -43,6 +43,9 @@ msgstr ""
 msgid "Running"
 msgstr ""
 
+msgid "Not installed"
+msgstr ""
+
 msgid "Stopped"
 msgstr ""
 
@@ -488,9 +491,6 @@ msgid "Bandwidth limit enforced by"
 msgstr ""
 
 msgid "Client"
-msgstr ""
-
-msgid "Server"
 msgstr ""
 
 msgid "Proxy protocol"

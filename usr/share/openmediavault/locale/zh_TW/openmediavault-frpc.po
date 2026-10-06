@@ -41,6 +41,9 @@ msgstr "編輯代理"
 msgid "Running"
 msgstr "執行中"
 
+msgid "Not installed"
+msgstr "未安裝"
+
 msgid "Stopped"
 msgstr "已停止"
 

@@ -62,7 +62,11 @@ native_is_active() {
 case "$OP" in
 	is-active)
 		if [ "$BACKEND" = "docker" ]; then
-			if docker_is_active; then
+			if ! docker_container_exists; then
+				# The docker backend controls an existing container
+				# created by the user; no container means not deployed.
+				echo "notinstalled"
+			elif docker_is_active; then
 				echo "running"
 			else
 				echo "stopped"

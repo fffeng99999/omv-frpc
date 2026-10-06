@@ -44,8 +44,26 @@ case "$ARCH" in
 	;;
 esac
 
-# Resolve the latest stable (non-prerelease) release tag.
+# Resolve the upstream frp tag for this build, in order of priority:
+#   1. the explicit tag argument (CI workflow_dispatch input / local use)
+#   2. the +frpX.Y.Z suffix pinned in debian/changelog (tagged releases
+#      register their frp version there, so builds are reproducible)
+#   3. the latest stable release from the GitHub API (convenience for
+#      untagged local builds only; prints a warning because such a
+#      build is not reproducible)
 if [ -z "$TAG" ]; then
+	CHANGELOG_HEAD="$(head -n 1 debian/changelog 2>/dev/null || true)"
+	UPSTREAM_VER="$(printf '%s\n' "$CHANGELOG_HEAD" | sed -n 's/.*(\([^)]*\)).*/\1/p' | sed 's/-[^-]*$//')"
+	FRP_FROM_CHANGELOG="$(printf '%s\n' "$UPSTREAM_VER" | sed -n 's/.*+frp//p')"
+	if [ -n "$FRP_FROM_CHANGELOG" ]; then
+		TAG="v${FRP_FROM_CHANGELOG}"
+		echo "Using frp tag pinned in debian/changelog: ${TAG}"
+	fi
+fi
+
+if [ -z "$TAG" ]; then
+	echo "WARNING: no explicit tag and no +frpX.Y.Z suffix in debian/changelog;" >&2
+	echo "WARNING: resolving the latest frp release -- this build is NOT reproducible." >&2
 	echo "Resolving latest frp release tag from GitHub ..."
 	TAG=$(api_get "${API}" \
 		| awk '

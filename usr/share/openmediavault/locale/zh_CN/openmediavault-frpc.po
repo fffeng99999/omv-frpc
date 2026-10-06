@@ -41,6 +41,9 @@ msgstr "编辑代理"
 msgid "Running"
 msgstr "运行中"
 
+msgid "Not installed"
+msgstr "未安装"
+
 msgid "Stopped"
 msgstr "已停止"
 
@@ -359,8 +362,8 @@ msgstr "压缩"
 msgid "Disabled entries are kept in the list but are not written to frpc.toml."
 msgstr "停用的条目保留在列表中，但不会写入 frpc.toml。"
 
-msgid "Unique name of this proxy or visitor (allowed characters are letters, digits, dot, underscore and dash)."
-msgstr "代理或访问者的唯一名称（允许的字符为字母、数字、点、下划线和短横线）。"
+msgid "Unique name of this proxy or visitor. Allowed characters: letters, digits, dot, underscore and dash."
+msgstr "代理或访问者的唯一名称。允许字符：字母、数字、点、下划线和短横线。"
 
 msgid "Only letters, digits, dot, underscore and dash are allowed."
 msgstr "仅允许字母、数字、点、下划线和短横线。"
@@ -416,19 +419,19 @@ msgstr "访问加密代理时双方必须提供的共享密钥。"
 msgid "Server name"
 msgstr "服务端名称"
 
-msgid "For visitors, the name of the peer's secret proxy to connect to."
+msgid "Visitor only: name of the peer's secret proxy to connect to."
 msgstr "访问者专用：要连接的对端加密代理名称。"
 
 msgid "Bind address"
 msgstr "绑定地址"
 
-msgid "For visitors, the local address the accessed service is bound to."
+msgid "Visitor only: local address the accessed service is bound to."
 msgstr "访问者专用：被访问服务在本地的绑定地址。"
 
 msgid "Bind port"
 msgstr "绑定端口"
 
-msgid "For visitors, the local port the accessed service is bound to."
+msgid "Visitor only: local port the accessed service is bound to."
 msgstr "访问者专用：被访问服务在本地的绑定端口。"
 
 msgid "HTTP / HTTPS domains"

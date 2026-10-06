@@ -121,6 +121,9 @@ frpc_systemctl_daemon_reload:
 start_frpc_container:
   cmd.run:
     - name: /usr/sbin/omv-frpc-ctl start docker '{{ container }}' '{{ container_cfg }}'
+    # Skip (instead of failing the Apply) when the user has not
+    # created the container yet.
+    - onlyif: docker inspect --type=container -- '{{ container }}' >/dev/null 2>&1
     - require:
       - file: render_frpc_config
 
@@ -130,6 +133,7 @@ restart_frpc_container_on_change:
     - name: /usr/sbin/omv-frpc-ctl restart docker '{{ container }}' '{{ container_cfg }}'
     - onchanges:
       - file: render_frpc_config
+    - onlyif: docker inspect --type=container -- '{{ container }}' >/dev/null 2>&1
     - require:
       - cmd: start_frpc_container
 

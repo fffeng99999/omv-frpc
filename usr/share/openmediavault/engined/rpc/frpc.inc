@@ -130,9 +130,16 @@ class OMVRpcServiceFrpc extends \OMV\Rpc\ServiceAbstract
         list(, $statusOut) = $this->runCtl(
             array_merge(["is-active"], $this->ctlArgs($object)), false
         );
-        $running = (trim(implode("\n", $statusOut)) === "running");
-        $object["running"] = $running;
-        $object["statusText"] = $running ? "Running" : "Stopped";
+        $state = trim(implode("\n", $statusOut));
+        if (!in_array($state, ["running", "stopped", "notinstalled"])) {
+            $state = "stopped";
+        }
+        $object["running"] = ("running" === $state);
+        $object["statusText"] = [
+            "running" => "Running",
+            "stopped" => "Stopped",
+            "notinstalled" => "Not installed"
+        ][$state];
 
         list(, $versionOut) = $this->runCtl(
             array_merge(["version"], $this->ctlArgs($object)), false
