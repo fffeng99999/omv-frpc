@@ -16,7 +16,7 @@ openmediavault-frpc (8.0.12+frp0.71.0) stable; urgency=medium
     four outdated zh_CN msgids with the template; msgid counts are now
     in parity across pot/zh_CN/zh_TW.
 
- -- fffeng99999  Sun, 04 Oct 2026 12:00:00 +0800
+ -- fffeng99999 <fffeng99999@users.noreply.github.com>  Sun, 04 Oct 2026 12:00:00 +0800
 
 openmediavault-frpc (8.0.11) stable; urgency=medium
 
@@ -43,7 +43,7 @@ openmediavault-frpc (8.0.11) stable; urgency=medium
     is shown translated again); the removal in 8.0.9 was based on the
     wrong transform assumption above.
 
- -- fffeng99999  Tue, 29 Sep 2026 23:05:00 +0800
+ -- fffeng99999 <fffeng99999@users.noreply.github.com>  Tue, 29 Sep 2026 23:05:00 +0800
 
 openmediavault-frpc (8.0.10) stable; urgency=medium
 
@@ -57,7 +57,7 @@ openmediavault-frpc (8.0.10) stable; urgency=medium
     required after installing this package. A plain in-app navigation
     keeps the previously cached component configuration.
 
- -- fffeng99999  Tue, 29 Sep 2026 21:35:00 +0800
+ -- fffeng99999 <fffeng99999@users.noreply.github.com>  Tue, 29 Sep 2026 21:35:00 +0800
 
 openmediavault-frpc (8.0.9) stable; urgency=medium
 
@@ -74,7 +74,7 @@ openmediavault-frpc (8.0.9) stable; urgency=medium
   * Frpc.get now validates the method context (administrator only), like
     every other write/enquiry method of this service.
 
- -- fffeng99999  Tue, 29 Sep 2026 21:00:00 +0800
+ -- fffeng99999 <fffeng99999@users.noreply.github.com>  Tue, 29 Sep 2026 21:00:00 +0800
 
 openmediavault-frpc (8.0.8) stable; urgency=medium
 
@@ -87,7 +87,7 @@ openmediavault-frpc (8.0.8) stable; urgency=medium
     selected proxy type. The fields are now laid out flat, like the core
     network interfaces form.
 
- -- fffeng99999  Tue, 29 Sep 2026 19:00:00 +0800
+ -- fffeng99999 <fffeng99999@users.noreply.github.com>  Tue, 29 Sep 2026 19:00:00 +0800
 
 openmediavault-frpc (8.0.7) stable; urgency=medium
 
@@ -112,7 +112,7 @@ openmediavault-frpc (8.0.7) stable; urgency=medium
     value via typeConfig (the doModifier() code reads typeConfig, not a
     top-level 'value' key).
 
- -- fffeng99999  Tue, 29 Sep 2026 18:30:00 +0800
+ -- fffeng99999 <fffeng99999@users.noreply.github.com>  Tue, 29 Sep 2026 18:30:00 +0800
 
 openmediavault-frpc (8.0.6) stable; urgency=medium
 
@@ -134,7 +134,7 @@ openmediavault-frpc (8.0.6) stable; urgency=medium
     default to "native" instead of "docker". Existing configurations
     keep their stored backend; only fresh installs get the new default.
 
- -- fffeng99999  Tue, 29 Sep 2026 10:00:00 +0800
+ -- fffeng99999 <fffeng99999@users.noreply.github.com>  Tue, 29 Sep 2026 10:00:00 +0800
 
 openmediavault-frpc (8.0.5) stable; urgency=medium
 
@@ -144,7 +144,7 @@ openmediavault-frpc (8.0.5) stable; urgency=medium
     /etc/systemd/system/frpc.service and systemd logged "Assignment
     outside of section. Ignoring." on every invocation.
 
- -- fffeng99999  Mon, 28 Sep 2026 23:30:00 +0800
+ -- fffeng99999 <fffeng99999@users.noreply.github.com>  Mon, 28 Sep 2026 23:30:00 +0800
 
 openmediavault-frpc (8.0.4) stable; urgency=medium
 
@@ -166,7 +166,7 @@ openmediavault-frpc (8.0.4) stable; urgency=medium
   * The proxy form shows subdomain and custom domains for tcpmux (frp
     requires at least one of them) and host header rewrite for http only.
 
- -- fffeng99999  Mon, 28 Sep 2026 23:00:00 +0800
+ -- fffeng99999 <fffeng99999@users.noreply.github.com>  Mon, 28 Sep 2026 23:00:00 +0800
 
 openmediavault-frpc (8.0.3) stable; urgency=medium
 
@@ -176,7 +176,7 @@ openmediavault-frpc (8.0.3) stable; urgency=medium
     now created only while the service is enabled, and stopping the
     service is skipped when no unit file exists.
 
- -- fffeng99999  Mon, 28 Sep 2026 22:45:00 +0800
+ -- fffeng99999 <fffeng99999@users.noreply.github.com>  Mon, 28 Sep 2026 22:45:00 +0800
 
 openmediavault-frpc (8.0.2) stable; urgency=medium
 
@@ -187,7 +187,7 @@ openmediavault-frpc (8.0.2) stable; urgency=medium
     "loadBalancerGroup". Form labels, translations and the generated
     frpc.toml keys (user, loadBalancer.group) are unchanged.
 
- -- fffeng99999  Mon, 28 Sep 2026 22:30:00 +0800
+ -- fffeng99999 <fffeng99999@users.noreply.github.com>  Mon, 28 Sep 2026 22:30:00 +0800
 
 openmediavault-frpc (8.0.1) stable; urgency=medium
 
@@ -210,4 +210,4 @@ openmediavault-frpc (8.0.1) stable; urgency=medium
       frpc.toml preview.
     - Simplified and Traditional Chinese translations included.
 
- -- fffeng99999  Mon, 28 Sep 2026 18:00:00 +0800
+ -- fffeng99999 <fffeng99999@users.noreply.github.com>  Mon, 28 Sep 2026 18:00:00 +0800

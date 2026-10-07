@@ -3,7 +3,7 @@ Section: net
 XB-Plugin-Section: network
 XB-Plugin-Architecture: amd64, arm64, armhf
 Priority: optional
-Maintainer: fffeng99999
+Maintainer: fffeng99999 <fffeng99999@users.noreply.github.com>
 Build-Depends: debhelper (>= 12)
 Standards-Version: 3.9.6
 Homepage: https://github.com/fffeng99999/omv-frpc
